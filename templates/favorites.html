@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favorites</title>
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+    <h1>Favorites</h1>
+    <div id="favorites-container" class="favorites-container"></div>
+    <label for="sort-option"></label>
+    <select id="sort-option">
+    <option value="date-added">Date Added</option>
+    </select>
+    <button id="select-items">Select Items</button>
+    <button id="add-to-cart">Add to Cart</button>
+    <button id="add-to-list">Add to List</button>
+    <button id="remove">Delete</button>
+
+    <script>
+
+        function displayFavorites() {
+            const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+            const favoritesContainer = document.getElementById('favorites-container');
+
+            if (favorites.length === 0) {
+                favoritesContainer.innerHTML = '<p>No favorites added yet!</p>';
+                return;
+            }
+        // Function to render favorites from localStorage
+
+            favorites.forEach(item => {
+                favoritesContainer.innerHTML += `
+                    <div class="favorite-item">
+                        <img src="${favorites.imageSrc}" alt="${favorites.title}">
+                        <h3>${favorites.title}</h3>
+                        <p>Price: ${favorites.price}</p>
+                        <button class="remove-favorite" data-cake-id="${favorites.id}">Remove</button>
+                    </div>
+                `;
+            });
+
+            // Event listener for remove favorites buttons
+            document.querySelectorAll('.remove-favorite').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const cakeId = button.dataset.cakeId;
+                    removeFromFavorites(cakeId);
+                });
+            });
+
+            // Event listener for add to cart buttons
+            document.querySelectorAll('.add-to-cart-favorite').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const id = e.target.dataset.id;
+                    addToCart(id);
+                });
+            });
+        }
+
+        // Remove item from favorites
+        function removeFromFavorites(cakeId) {
+            let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+            favorites = favorites.filter(item => item.title !== cakeId);
+            localStorage.setItem('favorites', JSON.stringify(favorites));
+            displayFavorites(); // Update the display
+        }
+
+        window.onload = displayFavorites;
+
+        // Add item to cart from favorites
+        function addToCart(id) {
+            const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+            const item = favorites.find(fav => fav.id === id);
+            if (item) {
+                alert(`${item.title} added to cart.`);
+                // Here you would typically add this item to the cart functionality
+                // This example does not implement a cart management system for favorites.
+            }
+        }
+
+        // Initialize display
+        displayFavorites();
+    </script>
+</body>
+</html>
+
+

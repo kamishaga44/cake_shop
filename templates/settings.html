@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Settings</title>
+</head>
+<body>
+    <h1>Settings</h1>
+    <p>Your settings options go here.</p>
+
+    <!-- Add a link to delete the account -->
+    <div>
+        <a href="{{ url_for('delete_account') }}" style="color: red; font-weight: bold;">Delete Account</a>
+    </div>
+
+    <!-- Back to Home link -->
+    <a href="/">Back to Home</a>
+</body>
+</html>

@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Home</title>
+</head>
+<body>
+
+<header>
+    <div class="logo-container">
+
+        <a href="/"><img src="/static/images/logo.png" alt="Bakery Logo" class="logo"></a>
+
+    </div>
+    <div class="nav">
+        <a href="{{ url_for('registration') }}">Register</a>
+        <a href="{{ url_for('login') }}">Login</a>
+        <a href="/aboutUs">About Us</a>
+        <a href="/contact">Contacts</a>
+        <a href="#accountPopup" id="account-button">👤Account</a>
+        <a href="{{ url_for('settings') }}">Settings</a>
+        <a href="{{ url_for('favorites') }}">Favorites</a>
+        <a href="{{ url_for('view_cart') }}" id="cart-button">🛒Cart</a>
+    </div>
+    <div class="nav2">
+        <a href="#cake-section">Cake</a>
+        <a href="#cupcake-section">Cupcake</a>
+        <a href="#pie-section">Pie</a>
+    </div>
+</header>
+
+<h1>Astana's Premier Bakery: <br> Fresh Flavors, Endless Delights!</h1>
+
+<section id="cake-section">
+    <h2>Our Cakes</h2>
+    <div class="cake-list">
+        {% for cake in cakes %}
+            <div class="cake-item">
+                <h3>{{ cake.name }}</h3>
+                <img src="{{ cake.image }}" alt="{{ cake.name }}" class="cake-image">
+                <p>{{ cake.info }}</p>
+                <p>Price: {{ cake.price }} RUB</p>
+
+                <!-- Add to Cart Form -->
+                <form action="{{ url_for('add_to_cart') }}" method="POST">
+                    <input type="hidden" name="cake_id" value="{{ cake.cake_id }}">
+                    <label for="quantity">Quantity:</label>
+                    <input type="number" name="quantity" min="1" value="1" required>
+                    <label for="phone">Phone:</label>
+                    <input type="tel" name="phone" required placeholder="Your phone number">
+                    <button type="submit">Add to Cart</button>
+                </form>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+
+</body>
+</html>
+
+
+
+    <!-- Other parts of your home.html -->
+
+<!-- Additional Section (above cake images, below the main heading) -->
+<div class="additional-section">
+    <div class="additional-button" id="btn1">
+        <img src="/static/images/additional1.jpg" alt="Halal Certification">
+    </div>
+    <div class="additional-button" id="btn2">
+        <img src="/static/images/additional2.jpg" alt="Halal Certification">
+    </div>
+    <div class="additional-button" id="btn3">
+        <img src="/static/images/additional3.jpg" alt="Free Packaging">
+    </div>
+    <div class="additional-button" id="btn4">
+        <img src="/static/images/additional4.jpg" alt="Free Writing on Cakes">
+    </div>
+    <div class="additional-button" id="btn5">
+        <img src="/static/images/additional5.jpg" alt="Free Delivery">
+    </div>
+    <div class="additional-button" id="btn6">
+        <img src="/static/images/additional6.jpg" alt="Birthday Celebration">
+    </div>
+    <div class="additional-button" id="btn7">
+        <img src="/static/images/additional7.jpg" alt="Wedding Cakes">
+    </div>
+</div>
+
+<!-- Main section of cakes remains as is -->
+
+<!-- Pop-up structure for the additional buttons -->
+<div id="popup-additional" class="popup">
+    <div class="popup-content">
+        <span class="close" id="close-additional">&times;</span>
+        <img id="popup-additional-image" src="" alt="Popup Image">
+        <p id="popup-additional-text"></p>
+    </div>
+</div>
+    <section id="cake-section" class="section">
+    <h2>Cakes</h2>
+    <div class="photo-buttons">
+        <div class="photo-button">
+            <a href="#" class="cake-link" data-cake-id="1">
+                <img src="/static/images/cake1.png" alt="Chocolate Cake">
+                <h3>Cocoa Delight</h3>
+                <p>Price: 10,000 ₸</p>
+            </a>
+             <button class="add-to-cart" data-cake-id="1">Add to Cart</button>
+            <button class="like-cake" data-cake-id="1">❤️ Like</button>
+        </div>
+        <div class="photo-button">
+            <a href="#" class="cake-link" data-cake-id="2">
+                <img src="/static/images/cake2.png" alt="Vanilla Cake">
+                <h3>Classic Vanilla Bliss</h3>
+                <p>Price: 10,000 ₸</p>
+            </a>
+             <button class="add-to-cart" data-cake-id="2">Add to Cart</button>
+            <button class="like-cake" data-cake-id="2">❤️ Like</button>
+        </div>
+        <div class="photo-button">
+            <a href="#" class="cake-link" data-cake-id="3">
+                <img src="/static/images/cake3.png" alt="Strawberry Cake">
+                <h3>Strawberry Dream</h3>
+                <p>Price: 10,000 ₸</p>
+            </a>
+             <button class="add-to-cart" data-cake-id="3">Add to Cart</button>
+            <button class="like-cake" data-cake-id="3">❤️ Like</button>
+        </div>
+        <div class="photo-button">
+            <a href="#" class="cake-link" data-cake-id="4">
+                <img src="/static/images/cake4.png" alt="Red Velvet Cake">
+                <h3>Crimson Velvet</h3>
+                <p>Price: 10,000 ₸</p>
+            </a>
+             <button class="add-to-cart" data-cake-id="4">Add to Cart</button>
+            <button class="like-cake" data-cake-id="4">❤️ Like</button>
+        </div>
+        <div class="photo-button">
+            <a href="#" class="cake-link" data-cake-id="5">
+                <img src="/static/images/cake5.png" alt="Vanilla Cake">
+                <h3>Lavender Essence</h3>
+                <p>Price: 10,000 ₸</p>
+            </a>
+             <button class="add-to-cart" data-cake-id="5">Add to Cart</button>
+            <button class="like-cake" data-cake-id="5">❤️ Like</button>
+        </div>
+        <div class="photo-button">
+            <a href="#" class="cake-link" data-cake-id="6">
+                <img src="/static/images/cake6.png" alt="Vanilla Cake">
+                <h3>Espresso Crumble</h3>
+                <p>Price: 10,000 ₸</p>
+            </a>
+             <button class="add-to-cart" data-cake-id="6">Add to Cart</button>
+            <button class="like-cake" data-cake-id="6">❤️ Like</button>
+        </div>
+        <div class="photo-button">
+            <a href="#" class="cake-link" data-cake-id="7">
+                <img src="/static/images/cake7.png" alt="Vanilla Cake">
+                <h3>Honey Gold</h3>
+                <p>Price: 10,000 ₸</p>
+            </a>
+             <button class="add-to-cart" data-cake-id="7">Add to Cart</button>
+            <button class="like-cake" data-cake-id="7">❤️ Like</button>
+        </div>
+        <div class="photo-button">
+            <a href="#" class="cake-link" data-cake-id="8">
+                <img src="/static/images/cake8.png" alt="Vanilla Cake">
+                <h3>Festive Fruit Delight</h3>
+                <p>Price: 10,000 ₸</p>
+            </a>
+             <button class="add-to-cart" data-cake-id="8">Add to Cart</button>
+            <button class="like-cake" data-cake-id="8">❤️ Like</button>
+        </div>
+        <div class="photo-button">
+            <a href="#" class="cake-link" data-cake-id="9">
+                <img src="/static/images/cake9.png" alt="Vanilla Cake">
+                <h3>Mocha Chocolate Cake</h3>
+                <p>Price: 10,000 ₸</p>
+            </a>
+             <button class="add-to-cart" data-cake-id="9">Add to Cart</button>
+            <button class="like-cake" data-cake-id="9">❤️ Like</button>
+        </div>
+        <div class="photo-button">
+            <a href="#" class="cake-link" data-cake-id="10">
+                <img src="/static/images/cake10.png" alt="Vanilla Cake">
+                <h3>Cherry Blossom</h3>
+                <p>Price: 10,000 ₸</p>
+            </a>
+             <button class="add-to-cart" data-cake-id="10">Add to Cart</button>
+            <button class="like-cake" data-cake-id="10">❤️ Like</button>
+        </div>
+        <div class="photo-button">
+            <a href="#" class="cake-link" data-cake-id="11">
+                <img src="/static/images/cake11.png" alt="Vanilla Cake">
+                <h3>Banana Caramel Cake</h3>
+                <p>Price: 10,000 ₸</p>
+            </a>
+             <button class="add-to-cart" data-cake-id="11">Add to Cart</button>
+            <button class="like-cake" data-cake-id="11">❤️ Like</button>
+        </div>
+        <div class="photo-button">
+            <a href="#" class="cake-link" data-cake-id="12">
+                <img src="/static/images/cake12.png" alt="Vanilla Cake">
+                <h3>Coconut Almond Dream</h3>
+                <p>Price: 10,000 ₸</p>
+            </a>
+             <button class="add-to-cart" data-cake-id="12">Add to Cart</button>
+            <button class="like-cake" data-cake-id="12">❤️ Like</button>
+        </div>
+
+
+    </div>
+    </section>
+
+
+    <section id="cupcake-section" class="section">
+    <h2>Cupcakes</h2>
+    <div class="photo-buttons">
+        <div class="photo-button">
+            <a href="#" class="cake-link" data-cake-id="1">
+                <img src="/static/images/cup1.png" alt="Chocolate Cake">
+                <span>Chocolate Cake</span>
+                <span>9 000 tg.</span>
+            </a>
+             <button class="add-to-cart" data-cake-id="1">Add to Cart</button>
+            <button class="like-cake" data-cake-id="1">❤️ Like</button>
+        </div>
+        <div class="photo-button">
+            <a href="#" class="cake-link" data-cake-id="2">
+                <img src="/static/images/cup2.png" alt="Vanilla Cake">
+                <span>Vanilla Cake</span>
+                <span>10 000 tg.</span>
+            </a>
+             <button class="add-to-cart" data-cake-id="2">Add to Cart</button>
+            <button class="like-cake" data-cake-id="2">❤️ Like</button>
+        </div>
+        <div class="photo-button">
+            <a href="#" class="cake-link" data-cake-id="3">
+                <img src="/static/images/cup3.png" alt="Strawberry Cake">
+                <span>Strawberry Cake</span>
+                <span>9 000 tg.</span>
+            </a>
+             <button class="add-to-cart" data-cake-id="3">Add to Cart</button>
+            <button class="like-cake" data-cake-id="3">❤️ Like</button>
+        </div>
+        <div class="photo-button">
+            <a href="#" class="cake-link" data-cake-id="4">
+                <img src="/static/images/cup4.png" alt="Red Velvet Cake">
+                <span>Red Velvet Cake</span>
+                <span>12 000 tg.</span>
+            </a>
+             <button class="add-to-cart" data-cake-id="4">Add to Cart</button>
+            <button class="like-cake" data-cake-id="4">❤️ Like</button>
+        </div>
+        <div class="photo-button">
+            <a href="#" class="cake-link" data-cake-id="5">
+                <img src="/static/images/cup5.png" alt="Vanilla Cake">
+                <span>Lavender Cake</span>
+                <span>10 000 tg.</span>
+            </a>
+             <button class="add-to-cart" data-cake-id="5">Add to Cart</button>
+            <button class="like-cake" data-cake-id="5">❤️ Like</button>
+        </div>
+        <div class="photo-button">
+            <a href="#" class="cake-link" data-cake-id="6">
+                <img src="/static/images/cup6.png" alt="Vanilla Cake">
+                <span>Coffee Cake</span>
+                <span>10 000 tg.</span>
+            </a>
+             <button class="add-to-cart" data-cake-id="6">Add to Cart</button>
+            <button class="like-cake" data-cake-id="6">❤️ Like</button>
+        </div>
+        <div class="photo-button">
+            <a href="#" class="cake-link" data-cake-id="7">
+                <img src="/static/images/cup7.png" alt="Vanilla Cake">
+                <span>Golden Cake</span>
+                <span>11 000 tg.</span>
+            </a>
+             <button class="add-to-cart" data-cake-id="7">Add to Cart</button>
+            <button class="like-cake" data-cake-id="7">❤️ Like</button>
+        </div>
+        <div class="photo-button">
+            <a href="#" class="cake-link" data-cake-id="8">
+                <img src="/static/images/cup8.png" alt="Vanilla Cake">
+                <span>Fruit Cake</span>
+                <span>9 000 tg.</span>
+            </a>
+             <button class="add-to-cart" data-cake-id="8">Add to Cart</button>
+            <button class="like-cake" data-cake-id="8">❤️ Like</button>
+        </div>
+        <div class="photo-button">
+            <a href="#" class="cake-link" data-cake-id="9">
+                <img src="/static/images/cup9.png" alt="Vanilla Cake">
+                <span>Mocha Chocolate Cake</span>
+                <span>10 000 tg.</span>
+            </a>
+             <button class="add-to-cart" data-cake-id="9">Add to Cart</button>
+            <button class="like-cake" data-cake-id="9">❤️ Like</button>
+        </div>
+        <div class="photo-button">
+            <a href="#" class="cake-link" data-cake-id="10">
+                <img src="/static/images/cup10.png" alt="Vanilla Cake">
+                <span>Cherry Cake</span>
+                <span>12 000 tg.</span>
+            </a>
+             <button class="add-to-cart" data-cake-id="10">Add to Cart</button>
+            <button class="like-cake" data-cake-id="10">❤️ Like</button>
+        </div>
+        <div class="photo-button">
+            <a href="#" class="cake-link" data-cake-id="11">
+                <img src="/static/images/cup11.png" alt="Vanilla Cake">
+                <span>Banana Caramel Cake</span>
+                <span>10 000 tg.</span>
+            </a>
+             <button class="add-to-cart" data-cake-id="11">Add to Cart</button>
+            <button class="like-cake" data-cake-id="11">❤️ Like</button>
+        </div>
+        <div class="photo-button">
+            <a href="#" class="cake-link" data-cake-id="12">
+                <img src="/static/images/cup12.png" alt="Vanilla Cake">
+                <span>Rafaello Cake</span>
+                <span>8 000 tg.</span>
+            </a>
+             <button class="add-to-cart" data-cake-id="12">Add to Cart</button>
+            <button class="like-cake" data-cake-id="12">❤️ Like</button>
+        </div>
+    </div>
+    </section>
+
+    <section id="pie-section" class="section">
+    <h2>Pies</h2>
+    <div class="photo-buttons">
+        <div class="photo-button">
+            <a href="#" class="cake-link" data-cake-id="1">
+                <img src="/static/images/pie1.png" alt="Chocolate Cake">
+                <span>Chocolate Cake</span>
+                <span>9 000 tg.</span>
+            </a>
+             <button class="add-to-cart" data-cake-id="1">Add to Cart</button>
+            <button class="like-cake" data-cake-id="1">❤️ Like</button>
+        </div>
+        <div class="photo-button">
+            <a href="#" class="cake-link" data-cake-id="2">
+                <img src="/static/images/pie2.png" alt="Vanilla Cake">
+                <span>Vanilla Cake</span>
+                <span>10 000 tg.</span>
+            </a>
+             <button class="add-to-cart" data-cake-id="2">Add to Cart</button>
+            <button class="like-cake" data-cake-id="2">❤️ Like</button>
+        </div>
+        <div class="photo-button">
+            <a href="#" class="cake-link" data-cake-id="3">
+                <img src="/static/images/pie3.png" alt="Strawberry Cake">
+                <span>Strawberry Cake</span>
+                <span>9 000 tg.</span>
+            </a>
+             <button class="add-to-cart" data-cake-id="3">Add to Cart</button>
+            <button class="like-cake" data-cake-id="3">❤️ Like</button>
+        </div>
+        <div class="photo-button">
+            <a href="#" class="cake-link" data-cake-id="4">
+                <img src="/static/images/pie4.png" alt="Red Velvet Cake">
+                <span>Red Velvet Cake</span>
+                <span>12 000 tg.</span>
+            </a>
+             <button class="add-to-cart" data-cake-id="4">Add to Cart</button>
+            <button class="like-cake" data-cake-id="4">❤️ Like</button>
+        </div>
+        <div class="photo-button">
+            <a href="#" class="cake-link" data-cake-id="5">
+                <img src="/static/images/pie5.png" alt="Vanilla Cake">
+                <span>Lavender Cake</span>
+                <span>10 000 tg.</span>
+            </a>
+             <button class="add-to-cart" data-cake-id="5">Add to Cart</button>
+            <button class="like-cake" data-cake-id="5">❤️ Like</button>
+        </div>
+        <div class="photo-button">
+            <a href="#" class="cake-link" data-cake-id="6">
+                <img src="/static/images/pie6.png" alt="Vanilla Cake">
+                <span>Coffee Cake</span>
+                <span>10 000 tg.</span>
+            </a>
+             <button class="add-to-cart" data-cake-id="6">Add to Cart</button>
+            <button class="like-cake" data-cake-id="6">❤️ Like</button>
+        </div>
+        <div class="photo-button">
+            <a href="#" class="cake-link" data-cake-id="7">
+                <img src="/static/images/pie7.png" alt="Vanilla Cake">
+                <span>Golden Cake</span>
+                <span>11 000 tg.</span>
+            </a>
+             <button class="add-to-cart" data-cake-id="7">Add to Cart</button>
+            <button class="like-cake" data-cake-id="7">❤️ Like</button>
+        </div>
+        <div class="photo-button">
+            <a href="#" class="cake-link" data-cake-id="8">
+                <img src="/static/images/pie8.png" alt="Vanilla Cake">
+                <span>Fruit Cake</span>
+                <span>9 000 tg.</span>
+            </a>
+             <button class="add-to-cart" data-cake-id="8">Add to Cart</button>
+            <button class="like-cake" data-cake-id="8">❤️ Like</button>
+        </div>
+        <div class="photo-button">
+            <a href="#" class="cake-link" data-cake-id="9">
+                <img src="/static/images/pie9.png" alt="Vanilla Cake">
+                <span>Mocha Chocolate Cake</span>
+                <span>10 000 tg.</span>
+            </a>
+             <button class="add-to-cart" data-cake-id="9">Add to Cart</button>
+            <button class="like-cake" data-cake-id="9">❤️ Like</button>
+        </div>
+        <div class="photo-button">
+            <a href="#" class="cake-link" data-cake-id="10">
+                <img src="/static/images/pie10.png" alt="Vanilla Cake">
+                <span>Cherry Cake</span>
+                <span>12 000 tg.</span>
+            </a>
+             <button class="add-to-cart" data-cake-id="10">Add to Cart</button>
+            <button class="like-cake" data-cake-id="10">❤️ Like</button>
+        </div>
+        <div class="photo-button">
+            <a href="#" class="cake-link" data-cake-id="11">
+                <img src="/static/images/pie11.png" alt="Vanilla Cake">
+                <span>Banana Caramel Cake</span>
+                <span>10 000 tg.</span>
+            </a>
+             <button class="add-to-cart" data-cake-id="11">Add to Cart</button>
+            <button class="like-cake" data-cake-id="11">❤️ Like</button>
+        </div>
+        <div class="photo-button">
+            <a href="#" class="cake-link" data-cake-id="12">
+                <img src="/static/images/pie12.png" alt="Vanilla Cake">
+                <span>Rafaello Cake</span>
+                <span>8 000 tg.</span>
+            </a>
+             <button class="add-to-cart" data-cake-id="12">Add to Cart</button>
+            <button class="like-cake" data-cake-id="12">❤️ Like</button>
+        </div>
+    </div>
+    </section>
+    <!-- Cake info pop-up -->
+    <div id="cake-popup" class="popup">
+        <div class="popup-content">
+            <span class="close">&times;</span>
+            <h2 id="cake-title"></h2>
+            <img id="cake-image" src="" alt="Cake Image" style="width: 100%; height: auto;">
+            <p id="cake-info"></p>
+            <p><strong>Price: $<span id="cake-price"></span></strong></p>
+            <button id="add-to-cart-button">Add to Cart</button>
+        </div>
+    </div>
+
+    <div id="popup-additional" class="popup">
+        <div class="popup-content">
+             <span class="close" id="close-additional">&times;</span>
+             <img id="popup-additional-image" src="" alt="Popup Image">
+             <p id="popup-additional-text"></p>
+        </div>
+    </div>
+    <script>
+    // Array of additional items details
+    const additionalItems = [
+        {
+            id: "btn1",
+            image: "/static/images/additional1.jpg",
+            text: "Our products comply with Halal certification standards"
+        },
+        {
+            id: "btn2",
+            image: "/static/images/additional2.jpg",
+            text: "Get a free inscription on your cake to personalize it for any event."
+        },
+        {
+            id: "btn3",
+            image: "/static/images/additional3.jpg",
+            text: "Beautiful gift packaging is free for all our cakes."
+        },
+        {
+            id: "btn4",
+            image: "/static/images/additional4.jpg",
+            text: "Custom wedding cakes are available for your big day."
+        },
+        {
+            id: "btn5",
+            image: "/static/images/additional5.jpg",
+            text: "Please your loved ones with unique cakes that meet the QMDB Halal standard"
+        },
+        {
+            id: "btn6",
+            image: "/static/images/additional6.jpg",
+            text: "Enjoy free delivery for orders over 10,000 KZT."
+        },
+        {
+            id: "btn7",
+            image: "/static/images/additional7.jpg",
+            text: "Celebrate birthdays in the office with our special cakes."
+        }
+    ];
+
+    // Handle pop-up
+    const popup = document.getElementById('popup-additional');
+    const popupImage = document.getElementById('popup-additional-image');
+    const popupText = document.getElementById('popup-additional-text');
+    const closePopup = document.getElementById('close-additional');
+
+    additionalItems.forEach(item => {
+        document.getElementById(item.id).addEventListener('click', function() {
+            popup.style.display = 'block';
+            popupImage.src = item.image;
+            popupText.innerText = item.text;
+        });
+    });
+
+    closePopup.addEventListener('click', function() {
+        popup.style.display = 'none';
+    });
+
+    window.onclick = function(event) {
+        if (event.target === popup) {
+            popup.style.display = 'none';
+        }
+    }
+</script>
+
+    <!-- The Account Pop-Up -->
+   <div class="account_popup" id="accountPopup">
+       <div class="account-popup-content">
+           <a href="#close" class="account-close">&times;</a>
+           <h2>Account Info</h2>
+
+           <!-- Add any other account-related content -->
+       </div>
+   </div>
+    <!-- Cart pop-up -->
+
+    <script>
+        const cakeData = {
+            1: { title: "Cocoa Delight", info: "Cocoa Delight is a rich, moist cake made with premium cocoa for a deep chocolate flavor, balanced with a hint of vanilla. Perfectly layered and frosted with smooth chocolate icing, it's an indulgent treat for any chocolate lover.", price: 9.000, image: "/static/images/cake1.png" },
+            2: { title: "Classic Vanilla Bliss ", info: "Classic Vanilla Bliss is a soft, fluffy cake made with pure vanilla extract, giving it a delicate, sweet aroma and light golden color. Each layer is filled and topped with smooth vanilla buttercream, making it a timeless treat for any occasion.", price: 10.000, image: "/static/images/cake2.png" },
+            3: { title: "Strawberry Dream", info: "A light, moist cake infused with real strawberries and layered with creamy strawberry frosting, offering a sweet, fruity burst in every bite.", price: 9.000, image: "/static/images/cake3.png" },
+            4: { title: "Crimson Velvet", info: "A velvety, rich cake with a hint of cocoa, paired with smooth cream cheese frosting for a perfectly balanced, indulgent treat.", price: 25, image: "/static/images/cake4.png" },
+            5: { title: "Lavender Essence", info: "Delicately flavored with lavender essence, this soft, pastel cake brings a subtle floral note, topped with a light vanilla or lavender-infused frosting.", price: 25, image: "/static/images/cake5.png" },
+            6: { title: "Espresso Crumble", info: "A moist coffee-flavored cake with a crunchy cinnamon crumble topping, perfect for pairing with a hot cup of coffee.", price: 25, image: "/static/images/cake6.png" },
+            7: { title: "Honey Gold", info: "A classic, buttery cake with a golden hue, topped with a smooth vanilla buttercream for a simple yet elegant dessert.", price: 25, image: "/static/images/cake7.png" },
+            8: { title: "Festive Fruit Delight", info: "Packed with assorted dried fruits and a hint of spices, this dense cake is ideal for holiday celebrations or anytime indulgence.", price: 25, image: "/static/images/cake8.png" },
+            9: { title: "Mocha Chocolate Cake", info: "A rich, moist chocolate cake infused with espresso for a bold mocha flavor, layered with creamy chocolate-coffee frosting. Perfect for coffee and chocolate lovers alike.", price: 25, image: "/static/images/cake9.png" },
+            10: { title: "Cherry Blossom", info: "A light and airy cake with real cherries mixed into the batter and topped with a cherry-infused frosting for a fresh, fruity finish.", price: 25, image: "/static/images/cake10.png" },
+            11: { title: "Banana Caramel Cake", info: "A soft, banana-infused cake layered with smooth caramel frosting and drizzled with homemade caramel sauce, delivering a sweet, creamy finish with every bite.", price: 25, image: "/static/images/cake11.png" },
+            12: { title: "Coconut Almond Dream,", info: "A luxurious, creamy cake layered with coconut and almond flavors, finished with a light coconut cream frosting and shredded coconut topping.", price: 25, image: "/static/images/cake12.png" },
+        };
+
+        const cart = [];
+        let total = 0;
+
+        document.querySelectorAll('.cake-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const cakeId = link.dataset.cakeId;
+                const cake = cakeData[cakeId];
+                document.getElementById('cake-title').textContent = cake.title;
+                document.getElementById('cake-info').textContent = cake.info;
+                document.getElementById('cake-price').textContent = `${cake.price} ₸`;
+                document.getElementById('cake-image').src = cake.image;
+                document.getElementById('cake-popup').style.display = 'block';
+            });
+        });
+
+        document.querySelectorAll('.close').forEach(close => {
+            close.addEventListener('click', () => {
+                document.getElementById('cake-popup').style.display = 'none';
+                document.getElementById('cart-popup').style.display = 'none';
+            });
+        });
+
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', () => {
+                const cakeId = button.dataset.cakeId;
+                const cake = cakeData[cakeId];
+                cart.push(cake);
+                total += cake.price;
+                updateCart();
+            });
+        });
+
+        document.getElementById('add-to-cart-button').addEventListener('click', () => {
+            const cakeId = document.querySelector('.cake-link[data-cake-id]').dataset.cakeId;
+            const cake = cakeData[cakeId];
+            cart.push(cake);
+            total += cake.price;
+            updateCart();
+            document.getElementById('cake-popup').style.display = 'none'; // Close pop-up after adding
+        });
+
+
+
+        document.querySelectorAll('.like-cake').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const id = e.target.dataset.id;
+                const item = cakeData[id];
+                addToFavorites(item);
+                alert(`${item.title} added to favorites.`);
+            });
+        });
+        function addToFavorites(cakeId) {
+            const cake = cakeData[cakeId];
+            let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+
+    // Check if the item is already in favorites
+            const exists = favorites.some(item => item.id === cakeId);
+            if (!exists) {
+                favorites.push({
+                    id: cakeId,
+                    title: cake.title,
+                    price: cake.price,
+                    image: cake.image,
+                });
+                localStorage.setItem('favorites', JSON.stringify(favorites));
+                alert(`${cake.title} added to favorites!`);
+            } else {
+                alert(`${cake.title} is already in favorites.`);
+            }
+        }
+        document.querySelectorAll('.like-cake').forEach(button => {
+            button.addEventListener('click', () => {
+                const cakeId = button.dataset.cakeId;
+                const title = button.previousElementSibling.querySelector('span:first-child').textContent;
+                const price = button.previousElementSibling.querySelector('span:last-child').textContent;
+                const imageSrc = button.previousElementSibling.querySelector('img').src;
+
+                const likedCake = { id: cakeId, title, price, imageSrc };
+
+                let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+
+                if (!favorites.some(item => item.id === cakeId)) {
+                    favorites.push(likedCake); // Add to favorites if not already present
+                    localStorage.setItem('favorites', JSON.stringify(favorites));
+                    alert(`You liked ${title}!`);
+                } else {
+                    alert(`You already liked ${title}.`);
+                }
+
+                addToFavorites(cakeId, title, price, imageSrc);
+
+            });
+        });
+
+        document.getElementById('cart-button').addEventListener('click', () => {
+            document.getElementById('cart-popup').style.display = 'block';
+        });
+
+        function updateCart() {
+            const cartItemsDiv = document.getElementById('cart-items');
+            cartItemsDiv.innerHTML = '';
+            cart.forEach((cake, index) => {
+                cartItemsDiv.innerHTML += `
+                    <div class="cart-item">
+                        <img src="${cake.image}" alt="${cake.title}">
+                        ${cake.title} - ${cake.price}₸
+                        <button class="remove-from-cart" data-index="${index}">Remove</button>
+                    </div>`;
+            });
+
+        document.getElementById('cart-total').textContent = total;
+
+            // Add remove functionality
+        document.querySelectorAll('.remove-from-cart').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const index = e.target.dataset.index;
+                    total -= cart[index].price;
+                    cart.splice(index, 1); // Remove cake from cart
+                    updateCart();
+                });
+            });
+        }
+
+        document.getElementById('purchase-button').addEventListener('click', () => {
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            alert(`Thank you, ${name}! Your order has been placed.\nTotal: $${total}\nContact: ${phone}`);
+            // Clear cart after purchase
+            cart.length = 0;
+            total = 0;
+            updateCart();
+        });
+    </script>
+<script>
+    // Обработчик для кнопок "Add to Cart"
+    document.querySelectorAll('.add-to-cart').forEach(button => {
+        button.addEventListener('click', function() {
+            const cakeId = this.getAttribute('data-cake-id');
+            const quantity = 1; // Например, по умолчанию 1
+            const phone = '123456789';  // Для примера, можно заменить на динамическое значение
+
+            fetch('/add_to_cart', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `cake_id=${cakeId}&quantity=${quantity}&phone=${phone}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);  // Отображение сообщения, полученного от сервера
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    });
+
+    // Обработчик для кнопок "Like"
+    document.querySelectorAll('.like-cake').forEach(button => {
+        button.addEventListener('click', function() {
+            const cakeId = this.getAttribute('data-cake-id');
+
+            fetch(`/like/${cakeId}`)
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);  // Отображение сообщения, полученного от сервера
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    });
+</script>
+</body>
+</html>
