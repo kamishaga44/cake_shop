@@ -6,6 +6,7 @@ body {
     font-family: 'Arial', sans-serif;
     font-weight: normal;
     background-color: #fdfdfd;
+
     margin: 0;
     padding: 0;
     color: #363c42;
@@ -549,10 +550,7 @@ h1 {    font-size: 4rem;
     h1 {
         font-size: 2.5rem;    }
 }
-/* styles.css */body {
-    font-family: Arial, sans-serif;    background-color: #f4afaf;
-    color: #333;    padding: 20px;
-}
+
 h1 {    font-size: 2em;
     color: #333;}
 #favorites-container {
@@ -572,7 +570,7 @@ h1 {    font-size: 2em;
 .favorite-item p {
     color: #888;}
 button {
-    background-color: #ffffff;    color: #ffffff;
+    background-color: #ff4f8b;    color: #ffffff;
     border: none;
     padding: 10px;    cursor: pointer;
     border-radius: 5px;    margin-top: 10px;
