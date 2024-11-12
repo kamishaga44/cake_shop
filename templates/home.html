@@ -15,15 +15,24 @@
 
     </div>
     <div class="nav">
+    {% if not current_user.is_authenticated %}
         <a href="{{ url_for('registration') }}">Register</a>
         <a href="{{ url_for('login') }}">Login</a>
-        <a href="/aboutUs">About Us</a>
-        <a href="/contact">Contacts</a>
+    {% endif %}
+
+    <a href="/aboutUs">About Us</a>
+    <a href="/contact">Contacts</a>
+
+    <!-- Показываем ссылки только если пользователь авторизован -->
+    {% if current_user.is_authenticated %}
         <a href="#accountPopup" id="account-button">👤Account</a>
         <a href="{{ url_for('settings') }}">Settings</a>
         <a href="{{ url_for('favorites') }}">Favorites</a>
         <a href="{{ url_for('view_cart') }}" id="cart-button">🛒Cart</a>
-    </div>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    {% endif %}
+</div>
+
     <div class="nav2">
         <a href="#cake-section">Cake</a>
         <a href="#cupcake-section">Cupcake</a>
