@@ -49,3 +49,4 @@ class Log(Base):
     details = Column(Text)
 
     user = relationship("User")
+
