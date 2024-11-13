@@ -3,12 +3,158 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <title>Account</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff2ec;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        h1, h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .profile-picture {
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            margin-bottom: 20px;
+        }
+
+        .user-info {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        table {
+            width: 100%;
+            background-color: #ffffff;
+            border-collapse: collapse;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        table td {
+            padding: 10px;
+            border-bottom: 1px solid #f1f1f1;
+            color: #333;
+        }
+
+        table td input[type="file"],
+        table td a.button {
+            width: 100%;
+            text-align: center;
+        }
+
+        .flashes {
+            list-style-type: none;
+            padding: 0;
+            margin: 0 0 20px 0;
+        }
+
+        .flashes li {
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .flashes .success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .flashes .error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        a.button {
+            font-size: 18px;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 10px 20px;
+            background-color: #ff4f8b;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Account</h1>
-    <p>Your account details go here.</p>
-    <a href="/">Back to Home</a>
+    <h1>Account Information</h1>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="flashes">
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <section class="user-info">
+        <h2>Your Details</h2>
+
+        {% if context.profile_picture %}
+            <img src="{{ url_for('static', filename='uploads/' + context.profile_picture) }}" alt="Profile Picture" class="profile-picture">
+        {% else %}
+            <p>No profile picture uploaded.</p>
+        {% endif %}
+
+        <table>
+            <tr>
+                <td><strong>Username:</strong></td>
+                <td>{{ current_user.login }}</td>
+            </tr>
+            <tr>
+                <td><strong>First Name:</strong></td>
+                <td>{{ current_user.user_fname }}</td>
+            </tr>
+            <tr>
+                <td><strong>Last Name:</strong></td>
+                <td>{{ current_user.user_sname }}</td>
+            </tr>
+            <tr>
+    <td><strong>Upload Profile Picture:</strong></td>
+    <td>
+        <form action="{{ url_for('upload_profile_picture') }}" method="POST" enctype="multipart/form-data" style="display: flex; align-items: center;">
+            <input type="file" name="profile_picture" required style="margin-right: 10px;">
+            <button type="submit">Upload</button>
+        </form>
+    </td>
+</tr>
+
+            <tr>
+                <td><strong>Download Menu:</strong></td>
+                <td>
+                    <a href="{{ url_for('static', filename='menu/menu.pdf') }}" class="button" download>Download New Menu</a>
+                </td>
+            </tr>
+        </table>
+    </section>
+
+    <a href="/" class="button">Back to Home</a>
 </body>
 </html>
+
+
+
+
+

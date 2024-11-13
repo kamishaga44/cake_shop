@@ -1,6 +1,12 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user, UserMixin
+import os
+from werkzeug.utils import secure_filename
+from datetime import datetime
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
 
 
 app = Flask(__name__)
@@ -11,6 +17,11 @@ db = SQLAlchemy(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 
+
+app.config['UPLOAD_FOLDER'] = 'static/uploads'  # Папка для хранения фотографий
+app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif'}
+
+
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
     user_id = db.Column(db.Integer, primary_key=True)
@@ -18,6 +29,7 @@ class User(db.Model, UserMixin):
     user_fname = db.Column(db.String(80), nullable=False)
     user_sname = db.Column(db.String(80), nullable=False)
     password = db.Column(db.String(120), nullable=False)
+    profile_picture = db.Column(db.String(255), nullable=True)
 
     def get_id(self):
         return str(self.user_id)
@@ -70,6 +82,7 @@ def registration():
                 db.session.commit()
                 flash("You have successfully registered!", "success")
                 return redirect(url_for("login"))
+
             except Exception as e:
                 flash(f"An error occurred during registration: {str(e)}", "error")
                 db.session.rollback()
@@ -97,7 +110,36 @@ def logout():
 @app.route('/account')
 @login_required
 def account():
-    return render_template('account.html')
+    user_data = {
+        'login': current_user.login,
+        'user_fname': current_user.user_fname,
+        'user_sname': current_user.user_sname,
+        'profile_picture': current_user.profile_picture
+    }
+    return render_template('account.html', context=user_data)
+
+
+@app.route('/upload_profile_picture', methods=['POST'])
+@login_required
+def upload_profile_picture():
+    if 'profile_picture' not in request.files:
+        return redirect(request.url)
+    file = request.files['profile_picture']
+
+    if file and allowed_file(file.filename):
+        filename = f"{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.{file.filename.rsplit('.', 1)[1].lower()}"
+        filepath = os.path.join('static/uploads', filename)
+        file.save(filepath)
+
+
+        current_user.profile_picture = filename
+        db.session.commit()
+
+        return redirect(url_for('account'))
+    else:
+        return 'Invalid file type or no file uploaded', 400
+
+
 
 @app.route('/settings')
 @login_required
