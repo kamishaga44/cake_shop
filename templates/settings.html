@@ -5,17 +5,77 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <title>Settings</title>
+    <script>
+
+        function togglePasswordChangeForm() {
+            var form = document.getElementById('password-change-form');
+            form.style.display = (form.style.display === 'none' || form.style.display === '') ? 'block' : 'none';
+        }
+
+
+        function toggleDeleteAccountForm() {
+            var form = document.getElementById('delete-account-form');
+            form.style.display = (form.style.display === 'none' || form.style.display === '') ? 'block' : 'none';
+        }
+    </script>
 </head>
 <body>
     <h1>Settings</h1>
-    <p>Your settings options go here.</p>
 
-    <!-- Add a link to delete the account -->
-    <div>
-        <a href="{{ url_for('delete_account') }}" style="color: red; font-weight: bold;">Delete Account</a>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="flashes">
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+
+    <button onclick="togglePasswordChangeForm()" style="background-color: #ff66b2; color: white; border: none; padding: 10px 20px; cursor: pointer; font-size: 16px; border-radius: 5px; margin-bottom: 20px;">Change Password</button>
+
+
+    <div id="password-change-form" style="display: none;">
+        <h2>Change Password</h2>
+        <form action="{{ url_for('change_password') }}" method="POST">
+            <label for="current_password">Current Password:</label>
+            <input type="password" name="current_password" required>
+
+            <label for="new_password">New Password:</label>
+            <input type="password" name="new_password" required>
+
+            <label for="confirm_password">Confirm New Password:</label>
+            <input type="password" name="confirm_password" required>
+
+            <button type="submit" style="background-color: #ff66b2; color: white; border: none; padding: 10px 20px; cursor: pointer; font-size: 16px; border-radius: 5px;">Change Password</button>
+        </form>
     </div>
 
-    <!-- Back to Home link -->
-    <a href="/">Back to Home</a>
+
+    <button onclick="toggleDeleteAccountForm()" style="background-color: #ff66b2; color: white; border: none; padding: 10px 20px; cursor: pointer; font-size: 16px; border-radius: 5px; margin-top: 20px;">Delete Account</button>
+
+
+    <div id="delete-account-form" style="display: none; background-color: #f8d7da; padding: 20px; border-radius: 5px; margin-top: 20px;">
+        <h2 style="color: #721c24;">Are you sure you want to delete your account?</h2>
+        <p style="color: #721c24;">This action is permanent and cannot be undone.</p>
+        <form action="{{ url_for('delete_account') }}" method="POST">
+            <label for="confirm_deletion">Type "DELETE" to confirm (uppercase):</label>
+            <input type="text" name="confirm_deletion" required>
+            <button type="submit" style="background-color: #ff66b2; color: white; border: none; padding: 10px 20px; cursor: pointer; font-size: 16px; border-radius: 5px;">Delete My Account</button>
+        </form>
+    </div>
+
+
+    <a href="/" style="font-size: 18px; color: #ff66b2; text-decoration: none; padding: 10px 20px; background-color: #ff4f8b; border-radius: 5px; display: inline-block; margin-top: 20px;">Back to Home</a>
+
+
 </body>
 </html>
+
+
+
+
+
+
