@@ -18,7 +18,6 @@ def log_action(db: Session, user_id: int, action_type: str, entity: str, entity_
     db.commit()
 
 
-
 def create_user(db: Session, login: str, password: str, user_fname: str, user_sname: str):
     hashed_password = generate_password_hash(password)
     new_user = models.User(login=login, password=hashed_password, user_fname=user_fname, user_sname=user_sname)
