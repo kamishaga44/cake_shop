@@ -1,13 +1,26 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify
 from flask_sqlalchemy import SQLAlchemy
-l
+from flask_login import LoginManager, current_user
+
+
 db = SQLAlchemy()
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:yElnara9593827!@localhost/shop_db'
 app.config['SECRET_KEY'] = "my secret key here"
 
+login_manager = LoginManager()
+login_manager.init_app(app)
+
 db.init_app(app)
+
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
 
 
 class User(db.Model):
@@ -48,11 +61,12 @@ class Order(db.Model):
         return f"<Order {self.order_id} by User {self.user_id}>"
 
 
-# Главная страница
+
+
 @app.route('/')
 def home():
-    cakes = Cake.query.all()  # Получаем все торты из базы данных
-    return render_template('home.html', cakes=cakes)
+    cakes = Cake.query.all()
+    return render_template('home.html', cakes=cakes, current_user=current_user)
 
 
 @app.route('/registration', methods=["GET", "POST"])
@@ -66,20 +80,20 @@ def registration():
 
         user_exists = db.session.query(User).filter_by(login=login).first()
         if user_exists:
-            flash("Пользователь с таким логином уже существует!", "error")
+            flash("There is already a user with this username.", "error")
             return redirect(url_for("registration"))
         elif pass1 != pass2:
-            flash("Пароли не совпадают!", "error")
+            flash("Passwords do not match.", "error")
             return redirect(url_for("registration"))
         else:
             try:
                 new_user = User(login=login, user_fname=fname, user_sname=sname, password=pass1)
                 db.session.add(new_user)
                 db.session.commit()
-                flash("Вы успешно зарегистрированы!", "success")
+                flash("Registration was successful!", "success")
                 return redirect(url_for("login"))
             except Exception as e:
-                flash(f"Произошла ошибка при регистрации: {str(e)}", "error")
+                flash(f"Error: {str(e)}", "error")
                 db.session.rollback()
                 return redirect(url_for("registration"))
 
@@ -167,7 +181,7 @@ def add_to_cart():
         return jsonify({"message": f"Error adding cake to cart: {str(e)}"}), 500
 
 
-# Просмотр корзины
+
 @app.route('/view_cart')
 def view_cart():
     if 'uid' not in session:
@@ -203,14 +217,14 @@ def delete_account():
                 try:
                     db.session.delete(user_to_delete)
                     db.session.commit()
-                    flash("Ваш аккаунт был успешно удалён!", "success")
+                    flash("Your account was deleted!", "success")
                     session.clear()
                     return redirect(url_for('home'))
                 except Exception as e:
-                    flash(f"Ошибка при удалении аккаунта: {str(e)}", "error")
+                    flash(f"Error occurred: {str(e)}", "error")
                     db.session.rollback()
             else:
-                flash("Пользователь не найден!", "error")
+                flash("There is no such user!", "error")
         return redirect(url_for('home'))
 
     return render_template('delete_account.html')
@@ -225,8 +239,11 @@ def about_us():
 def contacts():
     return render_template('contacts.html')
 
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))  # предполагаем, что у вас используется SQLAlchemy
 
-# Инициализация базы данных
+
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()

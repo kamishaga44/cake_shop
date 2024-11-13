@@ -2,10 +2,11 @@ from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, DECIMAL, T
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
 from datetime import datetime
+from flask_login import UserMixin
 
 Base = declarative_base()
 
-class User(Base):
+class User(UserMixin):
     __tablename__ = 'users'
 
     user_id = Column(Integer, primary_key=True, autoincrement=True)
@@ -49,4 +50,3 @@ class Log(Base):
     details = Column(Text)
 
     user = relationship("User")
-
