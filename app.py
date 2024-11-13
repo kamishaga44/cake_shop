@@ -1,18 +1,42 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify
 from flask_sqlalchemy import SQLAlchemy
+<<<<<<< HEAD
+from flask_login import LoginManager, current_user
+=======
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user, UserMixin
+<<<<<<< HEAD
 import os
 from werkzeug.utils import secure_filename
 from datetime import datetime
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
+=======
+>>>>>>> 76fbd312a37a45b92489564b9f04f0e6dc496c46
+>>>>>>> 2c58822b8569069861b86805a9ff01ac3c7f44ba
 
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:root1234@localhost/shop_db'
 app.config['SECRET_KEY'] = "my secret key here"
 
+<<<<<<< HEAD
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+db.init_app(app)
+
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
+
+class User(db.Model):
+=======
 db = SQLAlchemy(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
@@ -23,6 +47,7 @@ app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif'}
 
 
 class User(db.Model, UserMixin):
+>>>>>>> 76fbd312a37a45b92489564b9f04f0e6dc496c46
     __tablename__ = 'users'
     user_id = db.Column(db.Integer, primary_key=True)
     login = db.Column(db.String(80), unique=True, nullable=False)
@@ -56,10 +81,20 @@ class Order(db.Model):
 def load_user(user_id):
     return User.query.get(int(user_id))
 
+<<<<<<< HEAD
+
+
+
+@app.route('/')
+def home():
+    cakes = Cake.query.all()
+    return render_template('home.html', cakes=cakes, current_user=current_user)
+=======
 @app.route('/')
 def home():
     cakes = Cake.query.all()
     return render_template('home.html', cakes=cakes)
+>>>>>>> 76fbd312a37a45b92489564b9f04f0e6dc496c46
 
 @app.route('/registration', methods=["GET", "POST"])
 def registration():
@@ -72,19 +107,34 @@ def registration():
 
         user_exists = User.query.filter_by(login=login).first()
         if user_exists:
+<<<<<<< HEAD
+            flash("There is already a user with this username.", "error")
+            return redirect(url_for("registration"))
+        elif pass1 != pass2:
+            flash("Passwords do not match.", "error")
+            return redirect(url_for("registration"))
+=======
             flash("A user with this username already exists!", "error")
         elif pass1 != pass2:
             flash("Passwords do not match!", "error")
+>>>>>>> 76fbd312a37a45b92489564b9f04f0e6dc496c46
         else:
             try:
                 new_user = User(login=login, user_fname=fname, user_sname=sname, password=pass1)
                 db.session.add(new_user)
                 db.session.commit()
+<<<<<<< HEAD
+                flash("Registration was successful!", "success")
+                return redirect(url_for("login"))
+            except Exception as e:
+                flash(f"Error: {str(e)}", "error")
+=======
                 flash("You have successfully registered!", "success")
                 return redirect(url_for("login"))
 
             except Exception as e:
                 flash(f"An error occurred during registration: {str(e)}", "error")
+>>>>>>> 76fbd312a37a45b92489564b9f04f0e6dc496c46
                 db.session.rollback()
 
     return render_template("registration.html")
@@ -222,6 +272,49 @@ def add_to_cart():
     session.modified = True  # Mark session as modified
     return redirect(url_for('home'))
 
+<<<<<<< HEAD
+
+@app.route('/remove_favorite/<int:cake_id>')
+def remove_favorite(cake_id):
+    if 'favorites' in session and cake_id in session['favorites']:
+        session['favorites'].remove(cake_id)
+    return redirect(url_for('favorites'))
+
+
+@app.route('/add_to_cart', methods=['POST'])
+def add_to_cart():
+    if 'uid' not in session:
+        flash("Please log in to add items to your cart!", "error")
+        return redirect(url_for('login'))
+
+    try:
+        user_id = session['uid']
+        cake_id = request.form['cake_id']  # The cake ID from the form
+        quantity = int(request.form['quantity'])  # Quantity
+        phone = request.form['phone']  # User's phone for the order
+
+        # Check if the cake exists
+        cake = Cake.query.get(cake_id)
+        if not cake:
+            flash("This cake does not exist!", "error")
+            return redirect(url_for('home'))
+
+        # Add the order to the database
+        new_order = Order(user_id=user_id, cake_id=cake_id, quantity=quantity, phone=phone)
+        db.session.add(new_order)
+        db.session.commit()
+
+        # Respond with a success message
+        return jsonify({"message": "Cake added to your cart successfully!"})
+
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"message": f"Error adding cake to cart: {str(e)}"}), 500
+
+
+
+=======
+>>>>>>> 76fbd312a37a45b92489564b9f04f0e6dc496c46
 @app.route('/view_cart')
 def view_cart(cakes=None):
     if 'cart' not in session:
@@ -230,6 +323,48 @@ def view_cart(cakes=None):
     return render_template('cart.html', cart=cart_items)
 
 
+<<<<<<< HEAD
+@app.route('/delete_account', methods=["GET", "POST"])
+def delete_account():
+    if request.method == "POST":
+        user_id = session.get('uid')
+
+        if user_id:
+            user_to_delete = User.query.get(user_id)
+
+            if user_to_delete:
+                try:
+                    db.session.delete(user_to_delete)
+                    db.session.commit()
+                    flash("Your account was deleted!", "success")
+                    session.clear()
+                    return redirect(url_for('home'))
+                except Exception as e:
+                    flash(f"Error occurred: {str(e)}", "error")
+                    db.session.rollback()
+            else:
+                flash("There is no such user!", "error")
+        return redirect(url_for('home'))
+
+    return render_template('delete_account.html')
+
+
+@app.route('/aboutUs')
+def about_us():
+    return render_template('about.html')
+
+
+@app.route('/contact')
+def contacts():
+    return render_template('contacts.html')
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))  # предполагаем, что у вас используется SQLAlchemy
+
+
+=======
+>>>>>>> 76fbd312a37a45b92489564b9f04f0e6dc496c46
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
