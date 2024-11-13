@@ -97,7 +97,6 @@ def delete_order(db: Session, order_id: int):
         return True
     return False
 
-
 # CRUD operations for cakes
 
 def create_cake(db: Session, name: str, info: str, price: float, image: str):
