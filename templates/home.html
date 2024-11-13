@@ -24,7 +24,7 @@
     <a href="/contact">Contacts</a>
 
     {% if current_user.is_authenticated %}
-        <a href="#accountPopup" id="account-button">Account</a>
+        <a href="{{ url_for('account')}}">Account</a>
         <a href="{{ url_for('settings') }}">Settings</a>
         <a href="{{ url_for('favorites') }}">Favorites</a>
         <a href="{{ url_for('view_cart') }}" id="cart-button">Cart</a>
@@ -44,7 +44,6 @@
 <h1>Astana's Premier Bakery: <br> Fresh Flavors, Endless Delights!</h1>
 
 <section id="cake-section">
-    <h2>Our Cakes</h2>
     <div class="cake-list">
         {% for cake in cakes %}
             <div class="cake-item">

@@ -34,7 +34,7 @@
     {% endwith %}
 
 
-    <button onclick="togglePasswordChangeForm()" style="background-color: #ff66b2; color: white; border: none; padding: 10px 20px; cursor: pointer; font-size: 16px; border-radius: 5px; margin-bottom: 20px;">Change Password</button>
+    <button onclick="togglePasswordChangeForm()" style="background-color: #ff4f8b; color: white; border: none; padding: 10px 20px; cursor: pointer; font-size: 16px; border-radius: 5px; margin-bottom: 20px;">Change Password</button>
 
 
     <div id="password-change-form" style="display: none;">
@@ -49,12 +49,12 @@
             <label for="confirm_password">Confirm New Password:</label>
             <input type="password" name="confirm_password" required>
 
-            <button type="submit" style="background-color: #ff66b2; color: white; border: none; padding: 10px 20px; cursor: pointer; font-size: 16px; border-radius: 5px;">Change Password</button>
+            <button type="submit" style="background-color: #ff4f8b; color: white; border: none; padding: 10px 20px; cursor: pointer; font-size: 16px; border-radius: 5px;">Change Password</button>
         </form>
     </div>
 
 
-    <button onclick="toggleDeleteAccountForm()" style="background-color: #ff66b2; color: white; border: none; padding: 10px 20px; cursor: pointer; font-size: 16px; border-radius: 5px; margin-top: 20px;">Delete Account</button>
+    <button onclick="toggleDeleteAccountForm()" style="background-color: #ff4f8b; color: white; border: none; padding: 10px 20px; cursor: pointer; font-size: 16px; border-radius: 5px; margin-top: 20px;">Delete Account</button>
 
 
     <div id="delete-account-form" style="display: none; background-color: #f8d7da; padding: 20px; border-radius: 5px; margin-top: 20px;">
@@ -63,12 +63,12 @@
         <form action="{{ url_for('delete_account') }}" method="POST">
             <label for="confirm_deletion">Type "DELETE" to confirm (uppercase):</label>
             <input type="text" name="confirm_deletion" required>
-            <button type="submit" style="background-color: #ff66b2; color: white; border: none; padding: 10px 20px; cursor: pointer; font-size: 16px; border-radius: 5px;">Delete My Account</button>
+            <button type="submit" style="background-color: #ff4f8b; color: white; border: none; padding: 10px 20px; cursor: pointer; font-size: 16px; border-radius: 5px;">Delete My Account</button>
         </form>
     </div>
 
 
-    <a href="/" style="font-size: 18px; color: #ff66b2; text-decoration: none; padding: 10px 20px; background-color: #ff4f8b; border-radius: 5px; display: inline-block; margin-top: 20px;">Back to Home</a>
+    <a href="/" style="font-size: 18px; color: #ffffff; text-decoration: none; padding: 10px 20px; background-color: #ff4f8b; border-radius: 5px; display: inline-block; margin-top: 20px;">Back to Home</a>
 
 
 </body>

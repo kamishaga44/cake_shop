@@ -1048,7 +1048,7 @@ your_database_name|schema||new_user|localhost|UPDATE|G</Grants>
     </schema>
     <schema id="298" parent="1" name="shop_db">
       <Current>1</Current>
-      <LastIntrospectionLocalTimestamp>2024-11-10.12:58:12</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2024-11-13.12:32:23</LastIntrospectionLocalTimestamp>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <schema id="299" parent="1" name="sys">
@@ -1128,7 +1128,7 @@ your_database_name|schema||new_user|localhost|UPDATE|G</Grants>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
     <column id="316" parent="307" name="order_id">
-      <AutoIncrement>1</AutoIncrement>
+      <AutoIncrement>30</AutoIncrement>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StoredType>int|0s</StoredType>
@@ -1184,7 +1184,7 @@ your_database_name|schema||new_user|localhost|UPDATE|G</Grants>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
     <column id="327" parent="308" name="user_id">
-      <AutoIncrement>5</AutoIncrement>
+      <AutoIncrement>7</AutoIncrement>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StoredType>int|0s</StoredType>
@@ -1207,12 +1207,16 @@ your_database_name|schema||new_user|localhost|UPDATE|G</Grants>
       <Position>5</Position>
       <StoredType>varchar(255)|0s</StoredType>
     </column>
-    <index id="332" parent="308" name="PRIMARY">
+    <column id="332" parent="308" name="profile_picture">
+      <Position>6</Position>
+      <StoredType>varchar(300)|0s</StoredType>
+    </column>
+    <index id="333" parent="308" name="PRIMARY">
       <ColNames>user_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="333" parent="308" name="PRIMARY">
+    <key id="334" parent="308" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
