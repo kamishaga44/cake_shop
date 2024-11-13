@@ -14,24 +14,21 @@
         <a href="/"><img src="/static/images/logo.png" alt="Bakery Logo" class="logo"></a>
 
     </div>
-    <div class="nav">
-    {% if not current_user.is_authenticated %}
-        <a href="{{ url_for('registration') }}">Register</a>
-        <a href="{{ url_for('login') }}">Login</a>
-    {% endif %}
-
-    <a href="/aboutUs">About Us</a>
-    <a href="/contact">Contacts</a>
-
-    <!-- Показываем ссылки только если пользователь авторизован -->
+<div class="nav">
     {% if current_user.is_authenticated %}
         <a href="#accountPopup" id="account-button">👤Account</a>
         <a href="{{ url_for('settings') }}">Settings</a>
         <a href="{{ url_for('favorites') }}">Favorites</a>
         <a href="{{ url_for('view_cart') }}" id="cart-button">🛒Cart</a>
         <a href="{{ url_for('logout') }}">Logout</a>
+    {% else %}
+        <a href="{{ url_for('registration') }}">Register</a>
+        <a href="{{ url_for('login') }}">Login</a>
     {% endif %}
+    <a href="/aboutUs">About Us</a>
+    <a href="/contact">Contacts</a>
 </div>
+
 
     <div class="nav2">
         <a href="#cake-section">Cake</a>
@@ -697,42 +694,7 @@
             updateCart();
         });
     </script>
-<script>
-    // Обработчик для кнопок "Add to Cart"
-    document.querySelectorAll('.add-to-cart').forEach(button => {
-        button.addEventListener('click', function() {
-            const cakeId = this.getAttribute('data-cake-id');
-            const quantity = 1; // Например, по умолчанию 1
-            const phone = '123456789';  // Для примера, можно заменить на динамическое значение
-
-            fetch('/add_to_cart', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: `cake_id=${cakeId}&quantity=${quantity}&phone=${phone}`
-            })
-            .then(response => response.json())
-            .then(data => {
-                alert(data.message);  // Отображение сообщения, полученного от сервера
-            })
-            .catch(error => console.error('Error:', error));
-        });
-    });
-
-    // Обработчик для кнопок "Like"
-    document.querySelectorAll('.like-cake').forEach(button => {
-        button.addEventListener('click', function() {
-            const cakeId = this.getAttribute('data-cake-id');
-
-            fetch(`/like/${cakeId}`)
-            .then(response => response.json())
-            .then(data => {
-                alert(data.message);  // Отображение сообщения, полученного от сервера
-            })
-            .catch(error => console.error('Error:', error));
-        });
-    });
-</script>
+    <script src="favorites.js"></script> <!-- Include the favorites script -->
+    <script src="cart.js"></script> <!-- Include the cart script -->
 </body>
 </html>
