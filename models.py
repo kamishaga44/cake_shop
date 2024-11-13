@@ -49,6 +49,4 @@ class Log(Base):
     timestamp = Column(DateTime, default=datetime.utcnow)
     details = Column(Text)
 
-
-
     user = relationship("User")
