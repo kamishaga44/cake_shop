@@ -28,7 +28,7 @@ class User(db.Model, UserMixin):
     user_fname = db.Column(db.String(80), nullable=False)
     user_sname = db.Column(db.String(80), nullable=False)
     password = db.Column(db.String(120), nullable=False)
-    profile_picture = db.Column(db.String(255), nullable=True)  # Новое поле для фото
+    profile_picture = db.Column(db.String(255), nullable=True)
 
 
     def get_id(self):
@@ -56,7 +56,7 @@ class Order(db.Model):
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-# Главная страница
+
 @app.route('/')
 def home():
     cakes = Cake.query.all()
@@ -139,17 +139,20 @@ def login():
             flash("The login or password was wrong", "error")
     return render_template("login.html")
 
-@app.route('/cart')
-def view_cart():
-    # Логика для отображения корзины
-    return render_template('cart.html')
-
 @app.route("/logout")
 @login_required
 def logout():
     logout_user()
     flash("You have logged out!", "success")
     return redirect(url_for('home'))
+
+
+
+@app.route('/cart')
+def view_cart():
+    # Логика для отображения корзины
+    return render_template('cart.html')
+
 @app.route('/favorites')
 @login_required
 def favorites():
@@ -196,6 +199,8 @@ def add_to_cart():
 
 
 
+
+
 @app.route('/settings')
 @login_required
 def settings():
@@ -222,23 +227,6 @@ def delete_account():
             flash(f"Error deleting account: {str(e)}", "error")
             db.session.rollback()
     return render_template('settings.html')
-
-@app.route('/get_user_info', methods=['GET'])
-@login_required
-def get_user_info():
-    try:
-        user_id = current_user.user_id
-
-        user = User.query.get(user_id)
-        if user:
-            first_name = f"{user.user_fname}"
-            second_name = f"{user.user_sname}"
-            return jsonify({"name": first_name, "surname": second_name})
-        else:
-            return jsonify({"name": "", "surname": ""}), 404
-    except Exception as e:
-        print(f"Error retrieving user info: {e}")
-        return jsonify({"name": ""}), 500
 
 
 @app.route('/change_password', methods=['POST'])
@@ -272,12 +260,6 @@ def about_us():
 def contacts():
     return render_template('contacts.html')
 
-
-@app.route('/billing')
-def billing():
-    cart = session.get('cart', [])
-    total = sum(item['quantity'] * float(item['price']) for item in cart)
-    return render_template('billing.html', cart=cart, total=total)
 
 
 @app.route('/process-payment', methods=['POST'])
