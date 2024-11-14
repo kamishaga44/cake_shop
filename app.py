@@ -5,6 +5,7 @@ import os
 from werkzeug.utils import secure_filename
 
 
+
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:root1234@localhost/shop_db'
 app.config['SECRET_KEY'] = "my secret key here"
