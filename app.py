@@ -1,14 +1,24 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user, UserMixin
+import os
+from werkzeug.utils import secure_filename
+
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:root12345678@localhost/shop_db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:root1234@localhost/shop_db'
 app.config['SECRET_KEY'] = "my secret key here"
 
 db = SQLAlchemy(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
+
+app.config['UPLOAD_FOLDER'] = 'static/uploads'  # Папка для хранения фотографий
+app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif'}
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
+
 
 
 class User(db.Model, UserMixin):
@@ -18,6 +28,8 @@ class User(db.Model, UserMixin):
     user_fname = db.Column(db.String(80), nullable=False)
     user_sname = db.Column(db.String(80), nullable=False)
     password = db.Column(db.String(120), nullable=False)
+    profile_picture = db.Column(db.String(255), nullable=True)  # Новое поле для фото
+
 
     def get_id(self):
         return str(self.user_id)
@@ -49,6 +61,45 @@ def load_user(user_id):
 def home():
     cakes = Cake.query.all()
     return render_template('home.html', cakes=cakes)
+
+@app.route('/account')
+@login_required
+def account():
+    user_data = {
+        'login': current_user.login,
+        'user_fname': current_user.user_fname,
+        'user_sname': current_user.user_sname,
+        'profile_picture': current_user.profile_picture
+    }
+    return render_template('account.html', context=user_data)
+@app.route('/upload_profile_picture', methods=['POST'])
+@login_required
+def upload_profile_picture():
+    if 'profile_picture' not in request.files:
+        flash("No file part", "error")
+        return redirect(url_for('account'))
+
+    file = request.files['profile_picture']
+    if file.filename == '':
+        flash("No selected file", "error")
+        return redirect(url_for('account'))
+
+    if file and allowed_file(file.filename):
+        filename = secure_filename(file.filename)
+        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        file.save(filepath)
+
+
+        current_user.profile_picture = filename
+        db.session.commit()
+
+        flash("Profile picture uploaded successfully!", "success")
+        return redirect(url_for('account'))
+    else:
+        flash("Allowed file types are png, jpg, jpeg, gif", "error")
+        return redirect(url_for('account'))
+
+
 
 @app.route('/registration', methods=["GET", "POST"])
 def registration():
@@ -87,6 +138,11 @@ def login():
         else:
             flash("The login or password was wrong", "error")
     return render_template("login.html")
+
+@app.route('/cart')
+def view_cart():
+    # Логика для отображения корзины
+    return render_template('cart.html')
 
 @app.route("/logout")
 @login_required
@@ -137,10 +193,8 @@ def add_to_cart():
     session.modified = True
     return redirect(url_for('home'))
 
-@app.route('/account')
-@login_required
-def account():
-    return render_template('account.html')
+
+
 
 @app.route('/settings')
 @login_required
