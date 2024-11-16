@@ -27,8 +27,7 @@
     {% if current_user.is_authenticated %}
         <a href="{{ url_for('account')}}">Account</a>
         <a href="{{ url_for('settings') }}">Settings</a>
-        <a href="{{ url_for('favorites') }}">Favorites</a>
-        <a href="{{ url_for('view_cart') }}" id="cart-button">Cart</a>
+        <a href="#cartPopup" id="cart-button">Cart</a>
         <a href="{{ url_for('logout') }}">Logout</a>
     {% endif %}
 </div>
@@ -43,28 +42,6 @@
 </header>
 
 <h1>Astana's Premier Bakery: <br> Fresh Flavors, Endless Delights!</h1>
-
-<section id="cake-section">
-    <div class="cake-list">
-        {% for cake in cakes %}
-            <div class="cake-item">
-                <h3>{{ cake.name }}</h3>
-                <img src="{{ cake.image }}" alt="{{ cake.name }}" class="cake-image">
-                <p>{{ cake.info }}</p>
-                <p>Price: {{ cake.price }} RUB</p>
-
-                <form action="{{ url_for('add_to_cart') }}" method="POST">
-                    <input type="hidden" name="cake_id" value="{{ cake.cake_id }}">
-                    <label for="quantity">Quantity:</label>
-                    <input type="number" name="quantity" min="1" value="1" required>
-                    <label for="phone">Phone:</label>
-                    <input type="tel" name="phone" required placeholder="Your phone number">
-                    <button type="submit">Add to Cart</button>
-                </form>
-            </div>
-        {% endfor %}
-    </div>
-</section>
 
 </body>
 </html>
@@ -111,7 +88,6 @@
                 <p>Price: 16,000 ₸</p>
             </a>
              <button class="add-to-cart" data-cake-id="1">Add to Cart</button>
-            <button class="like-cake" data-cake-id="1">❤️ Like</button>
         </div>
         <div class="photo-button">
             <a href="#" class="cake-link" data-cake-id="2">
@@ -120,7 +96,6 @@
                 <p>Price: 13,000 ₸</p>
             </a>
              <button class="add-to-cart" data-cake-id="2">Add to Cart</button>
-            <button class="like-cake" data-cake-id="2">❤️ Like</button>
         </div>
         <div class="photo-button">
             <a href="#" class="cake-link" data-cake-id="3">
@@ -129,7 +104,6 @@
                 <p>Price: 18,000 ₸</p>
             </a>
              <button class="add-to-cart" data-cake-id="3">Add to Cart</button>
-            <button class="like-cake" data-cake-id="3">❤️ Like</button>
         </div>
         <div class="photo-button">
             <a href="#" class="cake-link" data-cake-id="4">
@@ -138,7 +112,6 @@
                 <p>Price: 10,000 ₸</p>
             </a>
              <button class="add-to-cart" data-cake-id="4">Add to Cart</button>
-            <button class="like-cake" data-cake-id="4">❤️ Like</button>
         </div>
         <div class="photo-button">
             <a href="#" class="cake-link" data-cake-id="5">
@@ -147,7 +120,6 @@
                 <p>Price: 15,000 ₸</p>
             </a>
              <button class="add-to-cart" data-cake-id="5">Add to Cart</button>
-            <button class="like-cake" data-cake-id="5">❤️ Like</button>
         </div>
         <div class="photo-button">
             <a href="#" class="cake-link" data-cake-id="6">
@@ -156,7 +128,6 @@
                 <p>Price: 15,000 ₸</p>
             </a>
              <button class="add-to-cart" data-cake-id="6">Add to Cart</button>
-            <button class="like-cake" data-cake-id="6">❤️ Like</button>
         </div>
         <div class="photo-button">
             <a href="#" class="cake-link" data-cake-id="7">
@@ -165,7 +136,6 @@
                 <p>Price: 10,000 ₸</p>
             </a>
              <button class="add-to-cart" data-cake-id="7">Add to Cart</button>
-            <button class="like-cake" data-cake-id="7">❤️ Like</button>
         </div>
         <div class="photo-button">
             <a href="#" class="cake-link" data-cake-id="8">
@@ -174,7 +144,6 @@
                 <p>Price: 10,000 ₸</p>
             </a>
              <button class="add-to-cart" data-cake-id="8">Add to Cart</button>
-            <button class="like-cake" data-cake-id="8">❤️ Like</button>
         </div>
         <div class="photo-button">
             <a href="#" class="cake-link" data-cake-id="9">
@@ -183,8 +152,6 @@
                 <p>Price: 12,000 ₸</p>
             </a>
              <button class="add-to-cart" data-cake-id="9">Add to Cart</button>
-            <button class="like-cake" data-cake-id="9">❤️ Like</button>
-        </div>
 
 
     </div>
@@ -201,7 +168,6 @@
                 <p>Price: 500 ₸/piece</p>
             </a>
              <button class="add-to-cart" data-cake-id="10">Add to Cart</button>
-            <button class="like-cake" data-cake-id="10">❤️ Like</button>
         </div>
         <div class="photo-button">
             <a href="#" class="cake-link" data-cake-id="11">
@@ -210,7 +176,6 @@
                 <p>Price: 500 ₸/piece</p>
             </a>
              <button class="add-to-cart" data-cake-id="11">Add to Cart</button>
-            <button class="like-cake" data-cake-id="11">❤️ Like</button>
         </div>
         <div class="photo-button">
             <a href="#" class="cake-link" data-cake-id="12">
@@ -219,7 +184,6 @@
                 <p>Price: 600 ₸/piece</p>
             </a>
              <button class="add-to-cart" data-cake-id="12">Add to Cart</button>
-            <button class="like-cake" data-cake-id="12">❤️ Like</button>
         </div>
         <div class="photo-button">
             <a href="#" class="cake-link" data-cake-id="13">
@@ -228,7 +192,6 @@
                 <p>Price: 7000 ₸</p>
             </a>
              <button class="add-to-cart" data-cake-id="13">Add to Cart</button>
-            <button class="like-cake" data-cake-id="13">❤️ Like</button>
         </div>
         <div class="photo-button">
             <a href="#" class="cake-link" data-cake-id="14">
@@ -237,7 +200,6 @@
                 <p>Price: 700 ₸/piece</p>
             </a>
              <button class="add-to-cart" data-cake-id="14">Add to Cart</button>
-            <button class="like-cake" data-cake-id="14">❤️ Like</button>
         </div>
         <div class="photo-button">
             <a href="#" class="cake-link" data-cake-id="15">
@@ -246,7 +208,6 @@
                 <p>Price: 500 ₸/piece</p>
             </a>
              <button class="add-to-cart" data-cake-id="15">Add to Cart</button>
-            <button class="like-cake" data-cake-id="15">❤️ Like</button>
         </div>
     </div>
     </section>
@@ -261,7 +222,6 @@
                 <p>Price: 7 000 ₸</p>
             </a>
              <button class="add-to-cart" data-cake-id="16">Add to Cart</button>
-            <button class="like-cake" data-cake-id="16">❤️ Like</button>
         </div>
         <div class="photo-button">
             <a href="#" class="cake-link" data-cake-id="17">
@@ -270,7 +230,6 @@
                 <p>Price: 5 000 ₸</p>
             </a>
              <button class="add-to-cart" data-cake-id="17">Add to Cart</button>
-            <button class="like-cake" data-cake-id="17">❤️ Like</button>
         </div>
         <div class="photo-button">
             <a href="#" class="cake-link" data-cake-id="18">
@@ -279,7 +238,6 @@
                 <p>Price: 7 000 ₸</p>
             </a>
              <button class="add-to-cart" data-cake-id="18">Add to Cart</button>
-            <button class="like-cake" data-cake-id="18">❤️ Like</button>
         </div>
         <div class="photo-button">
             <a href="#" class="cake-link" data-cake-id="19">
@@ -288,7 +246,6 @@
                 <p>Price: 5 000 ₸</p>
             </a>
              <button class="add-to-cart" data-cake-id="19">Add to Cart</button>
-            <button class="like-cake" data-cake-id="19">❤️ Like</button>
         </div>
         <div class="photo-button">
             <a href="#" class="cake-link" data-cake-id="20">
@@ -297,7 +254,6 @@
                 <p>Price: 7 000 ₸</p>
             </a>
              <button class="add-to-cart" data-cake-id="20">Add to Cart</button>
-            <button class="like-cake" data-cake-id="20">❤️ Like</button>
         </div>
         <div class="photo-button">
             <a href="#" class="cake-link" data-cake-id="21">
@@ -306,7 +262,6 @@
                 <p>Price: 7 000 ₸</p>
             </a>
              <button class="add-to-cart" data-cake-id="21">Add to Cart</button>
-            <button class="like-cake" data-cake-id="21">❤️ Like</button>
         </div>
         <div class="photo-button">
             <a href="#" class="cake-link" data-cake-id="22">
@@ -315,7 +270,6 @@
                 <p>Price: 9 000 ₸</p>
             </a>
              <button class="add-to-cart" data-cake-id="22">Add to Cart</button>
-            <button class="like-cake" data-cake-id="22">❤️ Like</button>
         </div>
         <div class="photo-button">
             <a href="#" class="cake-link" data-cake-id="23">
@@ -324,7 +278,6 @@
                 <p>Price: 7 000 ₸</p>
             </a>
              <button class="add-to-cart" data-cake-id="23">Add to Cart</button>
-            <button class="like-cake" data-cake-id="23">❤️ Like</button>
         </div>
         <div class="photo-button">
             <a href="#" class="cake-link" data-cake-id="24">
@@ -333,7 +286,6 @@
                 <p>Price: 6 000 ₸</p>
             </a>
              <button class="add-to-cart" data-cake-id="24">Add to Cart</button>
-            <button class="like-cake" data-cake-id="24">❤️ Like</button>
         </div>
     </div>
     </section>
@@ -348,7 +300,6 @@
                 <p>Price: 12,000 ₸</p>
             </a>
              <button class="add-to-cart" data-cake-id="25">Add to Cart</button>
-            <button class="like-cake" data-cake-id="25">❤️ Like</button>
         </div>
         <div class="photo-button">
             <a href="#" class="cake-link" data-cake-id="26">
@@ -357,7 +308,6 @@
                 <p>Price: 10,000 ₸</p>
             </a>
              <button class="add-to-cart" data-cake-id="26">Add to Cart</button>
-            <button class="like-cake" data-cake-id="26">❤️ Like</button>
         </div>
         <div class="photo-button">
             <a href="#" class="cake-link" data-cake-id="27">
@@ -366,7 +316,6 @@
                 <p>Price: 10,000 ₸</p>
             </a>
              <button class="add-to-cart" data-cake-id="27">Add to Cart</button>
-            <button class="like-cake" data-cake-id="27">❤️ Like</button>
         </div>
         <div class="photo-button">
             <a href="#" class="cake-link" data-cake-id="28">
@@ -375,7 +324,6 @@
                 <p>Price: 10,000 ₸</p>
             </a>
              <button class="add-to-cart" data-cake-id="28">Add to Cart</button>
-            <button class="like-cake" data-cake-id="28">❤️ Like</button>
         </div>
         <div class="photo-button">
             <a href="#" class="cake-link" data-cake-id="29">
@@ -384,7 +332,6 @@
                 <p>Price: 15,000 ₸</p>
             </a>
              <button class="add-to-cart" data-cake-id="29">Add to Cart</button>
-            <button class="like-cake" data-cake-id="29">❤️ Like</button>
         </div>
         <div class="photo-button">
             <a href="#" class="cake-link" data-cake-id="30">
@@ -393,7 +340,6 @@
                 <p>Price: 13,000 ₸</p>
             </a>
              <button class="add-to-cart" data-cake-id="30">Add to Cart</button>
-            <button class="like-cake" data-cake-id="30">❤️ Like</button>
         </div>
 
     </div>
@@ -409,7 +355,6 @@
                 <p>Price: 20,000 ₸</p>
             </a>
              <button class="add-to-cart" data-cake-id="31">Add to Cart</button>
-            <button class="like-cake" data-cake-id="31">❤️ Like</button>
         </div>
         <div class="photo-button">
             <a href="#" class="cake-link" data-cake-id="32">
@@ -418,7 +363,6 @@
                 <p>Price: 10,000 ₸</p>
             </a>
              <button class="add-to-cart" data-cake-id="32">Add to Cart</button>
-            <button class="like-cake" data-cake-id="32">❤️ Like</button>
         </div>
         <div class="photo-button">
             <a href="#" class="cake-link" data-cake-id="33">
@@ -427,7 +371,6 @@
                 <p>Price: 18,000 ₸</p>
             </a>
              <button class="add-to-cart" data-cake-id="33">Add to Cart</button>
-            <button class="like-cake" data-cake-id="33">❤️ Like</button>
         </div>
         <div class="photo-button">
             <a href="#" class="cake-link" data-cake-id="34">
@@ -436,7 +379,6 @@
                 <p>Price: 13,000 ₸</p>
             </a>
              <button class="add-to-cart" data-cake-id="34">Add to Cart</button>
-            <button class="like-cake" data-cake-id="34">❤️ Like</button>
         </div>
         <div class="photo-button">
             <a href="#" class="cake-link" data-cake-id="35">
@@ -445,7 +387,6 @@
                 <p>Price: 13,000 ₸</p>
             </a>
              <button class="add-to-cart" data-cake-id="35">Add to Cart</button>
-            <button class="like-cake" data-cake-id="35">❤️ Like</button>
         </div>
         <div class="photo-button">
             <a href="#" class="cake-link" data-cake-id="36">
@@ -454,7 +395,6 @@
                 <p>Price: 22,000 ₸</p>
             </a>
              <button class="add-to-cart" data-cake-id="36">Add to Cart</button>
-            <button class="like-cake" data-cake-id="36">❤️ Like</button>
         </div>
         <div class="photo-button">
             <a href="#" class="cake-link" data-cake-id="37">
@@ -463,7 +403,6 @@
                 <p>Price: 18,000 ₸</p>
             </a>
              <button class="add-to-cart" data-cake-id="37">Add to Cart</button>
-            <button class="like-cake" data-cake-id="37">❤️ Like</button>
         </div>
         <div class="photo-button">
             <a href="#" class="cake-link" data-cake-id="38">
@@ -472,7 +411,6 @@
                 <p>Price: 18,000 ₸</p>
             </a>
              <button class="add-to-cart" data-cake-id="38">Add to Cart</button>
-            <button class="like-cake" data-cake-id="38">❤️ Like</button>
         </div>
         <div class="photo-button">
             <a href="#" class="cake-link" data-cake-id="39">
@@ -481,7 +419,6 @@
                 <p>Price: 10,000 ₸</p>
             </a>
              <button class="add-to-cart" data-cake-id="39">Add to Cart</button>
-            <button class="like-cake" data-cake-id="9">❤️ Like</button>
         </div>
     </div>
     </section>
@@ -577,7 +514,20 @@
 
        </div>
    </div>
-
+<div id="cart-popup" class="popup">
+    <div class="popup-content">
+        <span class="close" id="cart-close">&times;</span>
+        <h2>Shopping Cart</h2>
+        <div id="cart-items"></div>
+        <h3>Total: <span id="cart-total">0</span>₸ </h3>
+        <label for="name"></label><input type="text" id="name" placeholder="Your Name" required>
+        <label for="surname"></label><input type="text" id="surname" placeholder="Your Surname" required>
+        <label for="phone"></label><input type="text" id="phone" placeholder="Your Phone Number" required>
+        <a href="{{ url_for('billing') }}">
+        <button id="purchase-button">Make Purchase</button>
+        </a>
+    </div>
+</div>
     <script>
         const cakeData = {
             1: {
@@ -710,7 +660,59 @@
             updateCart();
             document.getElementById('cake-popup').style.display = 'none'; // Close pop-up after adding
         });
+document.getElementById('cart-button').addEventListener('click', () => {
+        document.getElementById('cart-popup').style.display = 'block';
+    });
 
+    function updateCart() {
+        const cartItemsDiv = document.getElementById('cart-items');
+        cartItemsDiv.innerHTML = '';
+        cart.forEach((cake, index) => {
+            cartItemsDiv.innerHTML += `
+                <div class="cart-item">
+                    <img src="${cake.image}" alt="${cake.title}">
+                    ${cake.title} - ${cake.price}₸
+                    <button class="remove-from-cart" data-index="${index}">Remove</button>
+                </div>`;
+        });
+
+    document.getElementById('cart-total').textContent = total;
+
+        // Add remove functionality
+    document.querySelectorAll('.remove-from-cart').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const index = e.target.dataset.index;
+                total -= cart[index].price;
+                cart.splice(index, 1); // Remove cake from cart
+                updateCart();
+            });
+        });
+    }
+
+    document.getElementById('purchase-button').addEventListener('click', () => {
+        const name = document.getElementById('name').value;
+        const phone = document.getElementById('phone').value;
+        alert(`Thank you, ${name}! Your order has been placed.\nTotal: $${total}\nContact: ${phone}`);
+        // Clear cart after purchase
+        cart.length = 0;
+        total = 0;
+        updateCart();
+    });
+
+    document.addEventListener("DOMContentLoaded", function() {
+// Fetch the user's full name and populate the input field
+        fetch('/get_user_info')
+            .then(response => response.json())
+            .then(data => {
+                if (data.name) {
+                    document.getElementById('name').value = data.name;
+                }
+                if (data.surname) {
+                    document.getElementById('surname').value = data.surname;
+                }
+            })
+            .catch(error => console.error('Error fetching user info:', error));
+    });
         document.querySelectorAll('.like-cake').forEach(button => {
             button.addEventListener('click', (e) => {
                 const id = e.target.dataset.id;
@@ -834,5 +836,48 @@
         });
     });
     </script>
+<div class="account_popup" id="accountPopup">
+    <div class="account-popup-content">
+        <a href="#close" class="account-close">&times;</a>
+        <h2>Account Info</h2>
+    </div>
+</div>
+
+ <div id="cart-popup" class="popup">
+     <div class="popup-content">
+         <span class="close" id="cart-close">&times;</span>
+         <h2>Shopping Cart</h2>
+         <div id="cart-items"></div>
+         <h3>Total: <span id="cart-total">0</span>₸ </h3>
+         <label for="name"></label><input type="text" id="name" placeholder="Your Name" required>
+         <label for="surname"></label><input type="text" id="surname" placeholder="Your Surname" required>
+         <label for="phone"></label><input type="text" id="phone" placeholder="Your Phone Number" required>
+         <a href="{{ url_for('billing') }}">
+         <button id="purchase-button">Make Purchase</button>
+         </a>
+     </div>
+ </div>
+    <footer style="background-color: #303030; padding: 40px 0; color: #fff8ee; text-align: center; margin-top: 50px; font-family: Arial, sans-serif;">
+        <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+        <div class="footer-content" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 30px;">            <p style="font-size: 14px; font-weight: 500; margin: 0;">&copy; 2024 Cake Corner. All rights reserved.</p>
+            <nav class="footer-nav" style="margin-top: 10px;">
+                <a href="{{ url_for('home') }}" style="color: #fff1e4; text-decoration: none; margin: 0 15px; font-size: 16px; font-weight: 600;">Home</a>
+                <a href="{{ url_for('about_us') }}" style="color: #fff1e4; text-decoration: none; margin: 0 15px; font-size: 16px; font-weight: 600;">About Us</a>
+                <a href="{{ url_for('contacts') }}" style="color: #fff1e4; text-decoration: none; margin: 0 15px; font-size: 16px; font-weight: 600;">Contact</a>
+                <a href="{{ url_for('privacy_policy') }}" style="color: #fff1e4; text-decoration: none; margin: 0 15px; font-size: 16px; font-weight: 600;">Privacy Policy</a>
+            </nav>
+        </div>
+         <div class="social-media" style="margin-top: 20px; display: flex; justify-content: center; align-items: center;">
+            <a href="https://facebook.com" target="_blank" style="text-decoration: none; margin: 0 20px;">
+                <img src="{{ url_for('static', filename='images/facebook.png') }}" alt="Facebook" style="width: 35px; height: 35px; transition: transform 0.3s ease;">
+            </a>
+            <a href="https://instagram.com" target="_blank" style="text-decoration: none; margin: 0 20px;">
+               <img src="{{ url_for('static', filename='instagram.png') }}" alt="Instagram" style="width: 35px; height: 35px; transition: transform 0.3s ease;">
+            </a>
+             <a href="https://instagram.com" target="_blank" style="text-decoration: none; margin: 0 20px;">
+             <img src="{{ url_for('static', filename='twitter.png') }}" alt="Twitter"style="width: 35px; height: 35px; transition: transform 0.3s ease;" >
+            </a>
+         </div>
+    </div></footer>
 </body>
 </html>

@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration</title>
     <style>
-        /* Общие стили для страницы */
         body {
             font-family: 'Arial', sans-serif;
             background-color: #f9f2f8;
@@ -15,8 +14,6 @@
             height: 100vh;
             margin: 0;
         }
-
-        /* Контейнер для формы регистрации */
         .registration-container {
             background-color: #fff;
             padding: 30px;
@@ -26,28 +23,22 @@
             max-width: 400px;
             text-align: center;
         }
-
-        /* Заголовок */
         .registration-title {
             color: #ff4f8b;
             margin-bottom: 20px;
             font-size: 32px;
             font-weight: bold;
         }
-
-        /* Стили для элементов формы */
         .form-group {
             margin-bottom: 20px;
             text-align: left;
         }
-
         label {
             display: block;
             font-weight: bold;
             margin-bottom: 5px;
             color: #ff4f8b;
         }
-
         input[type="text"],
         input[type="email"],
         input[type="password"] {
@@ -66,7 +57,7 @@
             outline: none;
         }
 
-        /* Кнопка отправки */
+
         .submit-btn {
             background-color: #ff4f8b;
             color: white;
@@ -83,14 +74,13 @@
             background-color: #ff2b70;
         }
 
-        /* Стили для сообщения об ошибке */
         .message {
             color: red;
             font-weight: bold;
             margin-bottom: 15px;
         }
 
-        /* Ссылки для перехода на страницу входа */
+
         .login-link {
             margin-top: 20px;
             font-size: 14px;
@@ -110,9 +100,16 @@
     <div class="registration-container">
         <h1 class="registration-title">Register</h1>
 
-        {% if context %}
-            <div class="message">{{ context }}</div>
-        {% endif %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div class="message">
+      {% for category, message in messages %}
+        <p class="{{ category }}">{{ message }}</p>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
 
         <form action="{{ url_for('registration') }}" method="POST">
             <div class="form-group">

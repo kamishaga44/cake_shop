@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user, UserMixin
 import os
 from werkzeug.utils import secure_filename
-
+import re
 
 
 app = Flask(__name__)
@@ -14,7 +14,7 @@ db = SQLAlchemy(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 
-app.config['UPLOAD_FOLDER'] = 'static/uploads'  # Папка для хранения фотографий
+app.config['UPLOAD_FOLDER'] = 'static/uploads'
 app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif'}
 
 def allowed_file(filename):
@@ -30,28 +30,13 @@ class User(db.Model, UserMixin):
     user_sname = db.Column(db.String(80), nullable=False)
     password = db.Column(db.String(120), nullable=False)
     profile_picture = db.Column(db.String(255), nullable=True)
+    phone_number = db.Column(db.String(80))
 
 
     def get_id(self):
         return str(self.user_id)
 
-class Cake(db.Model):
-    __tablename__ = 'cakes'
-    cake_id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(80), nullable=False)
-    info = db.Column(db.String(255), nullable=False)
-    price = db.Column(db.Float, nullable=False)
-    image = db.Column(db.String(255), nullable=True)
 
-class Order(db.Model):
-    __tablename__ = 'orders'
-    order_id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
-    cake_id = db.Column(db.Integer, db.ForeignKey('cakes.cake_id'), nullable=False)
-    quantity = db.Column(db.Integer, nullable=False)
-    phone = db.Column(db.String(20), nullable=False)
-    user = db.relationship('User', backref=db.backref('orders', lazy=True))
-    cake = db.relationship('Cake', backref=db.backref('orders', lazy=True))
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -60,8 +45,7 @@ def load_user(user_id):
 
 @app.route('/')
 def home():
-    cakes = Cake.query.all()
-    return render_template('home.html', cakes=cakes)
+    return render_template('home.html')
 
 @app.route('/account')
 @login_required
@@ -73,6 +57,7 @@ def account():
         'profile_picture': current_user.profile_picture
     }
     return render_template('account.html', context=user_data)
+
 @app.route('/upload_profile_picture', methods=['POST'])
 @login_required
 def upload_profile_picture():
@@ -100,8 +85,6 @@ def upload_profile_picture():
         flash("Allowed file types are png, jpg, jpeg, gif", "error")
         return redirect(url_for('account'))
 
-
-
 @app.route('/registration', methods=["GET", "POST"])
 def registration():
     if request.method == "POST":
@@ -116,6 +99,11 @@ def registration():
             flash("A user with this username already exists!", "error")
         elif pass1 != pass2:
             flash("Passwords do not match!", "error")
+        elif not validate_password(pass1):
+            flash(
+                "Password must be at least 6 characters long, contain at least one uppercase letter, one lowercase letter, one digit, and one special character (!@#$%^&*).",
+                "error"
+            )
         else:
             try:
                 new_user = User(login=login, user_fname=fname, user_sname=sname, password=pass1)
@@ -128,6 +116,22 @@ def registration():
                 db.session.rollback()
 
     return render_template("registration.html")
+
+
+def validate_password(password):
+
+    if len(password) < 6:
+        return False
+    if not re.search(r'[A-Z]', password):
+        return False
+    if not re.search(r'[a-z]', password):
+        return False
+    if not re.search(r'[0-9]', password):
+        return False
+    if not re.search(r'[!@#$%^&*]', password):
+        return False
+    return True
+
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -146,61 +150,6 @@ def logout():
     logout_user()
     flash("You have logged out!", "success")
     return redirect(url_for('home'))
-
-
-
-@app.route('/cart')
-def view_cart():
-    # Логика для отображения корзины
-    return render_template('cart.html')
-
-@app.route('/favorites')
-@login_required
-def favorites():
-    if 'favorites' not in session:
-        session['favorites'] = []
-    favorites_cakes = [Cake.query.get(cake_id) for cake_id in session['favorites']]
-    return render_template('favorites.html', favorites=favorites_cakes)
-
-@app.route('/like/<int:cake_id>')
-@login_required
-def like(cake_id):
-    if 'favorites' not in session:
-        session['favorites'] = []
-    if cake_id not in session['favorites']:
-        session['favorites'].append(cake_id)
-    return redirect(url_for('home'))
-
-@app.route('/remove_favorite/<int:cake_id>')
-@login_required
-def remove_favorite(cake_id):
-    if 'favorites' in session and cake_id in session['favorites']:
-        session['favorites'].remove(cake_id)
-    return redirect(url_for('favorites'))
-
-@app.route('/cart', methods=['POST'])
-@login_required
-def add_to_cart():
-    if 'cart' not in session:
-        session['cart'] = []
-
-    price = request.form['price']
-
-    cart_item = {
-        'cake_id': request.form['cake_id'],
-        'quantity': request.form['quantity'],
-        'name': request.form['name'],
-        'phone': request.form['phone'],
-        'price': price
-    }
-    session['cart'].append(cart_item)
-    session.modified = True
-    return redirect(url_for('home'))
-
-
-
-
-
 
 @app.route('/settings')
 @login_required
@@ -242,10 +191,16 @@ def change_password():
     if user.password != current_password:
         flash("Incorrect current password.", "error")
         return redirect(url_for('settings'))
-
     if new_password != confirm_password:
         flash("New password and confirmation do not match.", "error")
         return redirect(url_for('settings'))
+    if not validate_password(new_password):
+        flash(
+            "Password must be at least 6 characters long, contain at least one uppercase letter, one lowercase letter, one digit, and one special character (!@#$%^&*).",
+            "error"
+        )
+        return redirect(url_for('settings'))
+
 
     user.password = new_password
     db.session.commit()
@@ -253,14 +208,56 @@ def change_password():
     flash("Password successfully updated.", "success")
     return redirect(url_for('settings'))
 
-@app.route('/aboutUs')
-def about_us():
-    return render_template('about.html')
 
-@app.route('/contact')
-def contacts():
-    return render_template('contacts.html')
+def validate_password(password):
+    if len(password) < 6:
+        return False
+    if not re.search(r"[A-Z]", password):
+        return False
+    if not re.search(r"[a-z]", password):
+        return False
+    if not re.search(r"\d", password):
+        return False
+    if not re.search(r"[!@#$%^&*]", password):
+        return False
+    return True
 
+@app.route('/cart', methods=['POST'])
+@login_required
+def add_to_cart():
+    if 'cart' not in session:
+        session['cart'] = []
+
+    price = request.form['price']
+
+    cart_item = {
+        'cake_id': request.form['cake_id'],
+        'quantity': request.form['quantity'],
+        'name': request.form['name'],
+        'phone': request.form['phone'],
+        'price': price
+    }
+    session['cart'].append(cart_item)
+    session.modified = True
+    return redirect(url_for('home'))
+
+@app.route('/get_user_info', methods=['GET'])
+@login_required
+def get_user_info():
+    try:
+        user_id = current_user.user_id
+
+        user = User.query.get(user_id)
+        if user:
+            first_name = f"{user.user_fname}"
+            second_name = f"{user.user_sname}"
+            phone_number = f"{user.phone_number}" if user.phone_number else ""  # Handle null values
+            return jsonify({"name": first_name, "surname": second_name, "phone_number": phone_number})
+        else:
+            return jsonify({"name": "", "surname": "", "phone_number": ""}), 404
+    except Exception as e:
+        print(f"Error retrieving user info: {e}")
+        return jsonify({"name": "", "surname": "", "phone_number": ""}), 500
 
 
 @app.route('/process-payment', methods=['POST'])
@@ -272,17 +269,34 @@ def process_payment():
         card_name = request.form['card-name']
         expiry_date = request.form['expiry-date']
         cvv = request.form['cvv']
-        # Process card payment logic here (e.g., integrate with a payment gateway)
         return redirect(url_for('payment_success'))
 
     elif payment_method == 'cash':
-        # Process cash payment logic here
         return redirect(url_for('payment_success'))
 
 
 @app.route('/payment-success')
 def payment_success():
     return "Your payment has been successfully processed!"
+
+@app.route('/billing')
+def billing():
+    cart = session.get('cart', [])
+    total = sum(item['quantity'] * float(item['price']) for item in cart)
+    return render_template('billing.html', cart=cart, total=total)
+
+
+@app.route('/aboutUs')
+def about_us():
+    return render_template('about.html')
+
+@app.route('/contact')
+def contacts():
+    return render_template('contacts.html')
+
+@app.route('/privacy_policy')
+def privacy_policy():
+    return render_template('privacy_policy.html')
 
 if __name__ == '__main__':
     with app.app_context():
