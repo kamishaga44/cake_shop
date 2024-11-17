@@ -1,14 +1,58 @@
-<!DOCTYPE html><html lang="en">
-<head>    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">    <title>Contacts</title>
-     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"></head>
-<body>    <div class="contacts">
-        <h1>Our Cafes</h1>        <div class="contact-item">
-            <img src="/static/images/cafe1.jpg" alt="Our Cafes">            <p>Cafe 1 Address: 123 Cake Street</p>
-        </div>        <div class="contact-item">
-            <img src="/static/images/cafe2.jpg" alt="Our Cafes">            <p>Cafe 2 Address: 456 Sweet Lane</p>
-        </div>        <div class="contact-item">
-            <img src="/static/images/cafe3.jpg" alt="Our Cafes">            <p>Cafe 3 Address: 789 Dessert Avenue</p>
-        </div>    </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacts</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script>
+        function toggleContactInfo(index) {
+            const info = document.getElementById('info-' + index);
+            const button = document.getElementById('button-' + index);
+            if (info.style.display === 'none') {
+                info.style.display = 'block';
+                button.innerText = 'Hide Info';
+            } else {
+                info.style.display = 'none';
+                button.innerText = 'Show Info';
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="contacts">
+        <h1>Our Cafes</h1>
+
+        <!-- Информация о кафе 1 -->
+        <div class="contact-item">
+            <img src="/static/images/cafe1.jpg" alt="Our Cafes">
+            <p><strong>Cafe 1</strong></p>
+            <button id="button-1" onclick="toggleContactInfo(1)">Show Info</button>
+            <div id="info-1" class="info" style="display:none;">
+                <p>Address: 123 Cake Street</p>
+            </div>
+        </div>
+
+        <!-- Информация о кафе 2 -->
+        <div class="contact-item">
+            <img src="/static/images/cafe2.jpg" alt="Our Cafes">
+            <p><strong>Cafe 2</strong></p>
+            <button id="button-2" onclick="toggleContactInfo(2)">Show Info</button>
+            <div id="info-2" class="info" style="display:none;">
+                <p>Address: 456 Sweet Lane</p>
+            </div>
+        </div>
+
+        <!-- Информация о кафе 3 -->
+        <div class="contact-item">
+            <img src="/static/images/cafe3.jpg" alt="Our Cafes">
+            <p><strong>Cafe 3</strong></p>
+            <button id="button-3" onclick="toggleContactInfo(3)">Show Info</button>
+            <div id="info-3" class="info" style="display:none;">
+                <p>Address: 789 Dessert Avenue</p>
+            </div>
+        </div>
+
+    </div>
 </body>
 </html>

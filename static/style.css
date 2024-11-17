@@ -5,7 +5,8 @@
 body {
     font-family: 'Arial', sans-serif;
     font-weight: normal;
-    background-color: #c50076;
+    background-color: #fff2ec;
+
     margin: 0;
     padding: 0;
     color: #363c42;
@@ -24,23 +25,41 @@ html {
 .nav {
     display: flex;
     justify-content: center;
-    gap: 100px;
-    margin-top: 0px;
+    gap: 30px;
+    margin-top: 0;
     margin-bottom: 20px;
     position: fixed; /* Keep the nav fixed on the screen */
-    top: 0; /* Stay at the top */
+    top: 0;
     left: 0;
     width: 100%; /* Span the full width of the page */
-    background-color: rgb(225, 221, 221); /* Same background color as the page */
+    background-color: rgb(255, 255, 255); /* Same background color as the page */
     z-index: 1000; /* Ensure it's above other content */
     padding: 10px 0; /* Padding to make it more visible */
     box-shadow: 0 2px 5px rgb(166, 164, 164); /* Optional: add a shadow to differentiate the nav */
 }
+
+.nav a {
+    display: inline-block;
+    padding: 12px 20px; /* Creates the button shape */
+    margin: 5px;
+    border-radius: 25px; /* Makes it look like a bubble */
+    background-color: #ff4f8b; /* Light background for contrast */
+    text-decoration: none;
+    color: #ffffff; /* Text color */
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Adds depth */
+    transition: background-color 0.3s, transform 0.2s; /* Smooth hover effect */
+}
+
+.nav a:hover {
+    background-color: #f37fa7; /* Slightly darker on hover */
+    transform: scale(1.05); /* Grows slightly on hover */
+}
 .nav2 {
     display: flex;
     justify-content: center;
-    gap: 100px;
-    margin-top: 40px;
+    gap: 80px;
+    margin-top: 70px;
     margin-bottom: 20px;
     position: fixed; /* Keep the nav fixed on the screen */
     top: 0; /* Stay at the top */
@@ -52,39 +71,42 @@ html {
     box-shadow: 0 2px 5px rgb(225, 225, 221); /* Optional: add a shadow to differentiate the nav */
 }
 
+.nav2 a {
+
+    text-decoration: none;
+    color: #000000;
+    font-weight: bold;
+}
+
 #account-button {
     position: relative; /* Keep it in the flow, but allow stacking */
     z-index: 1002; /* Ensure it's above sections */
 }
 
-/* Show popup when target is active */
 #accountPopup:target {
     display: block; /* Show when the ID is targeted */
 }
 
 
-h1, h2 {
-    text-align: center;
-    color: #8768ac;
-}
-
 h1 {
-    margin-top: 120px;
+    margin-top: 150px;
+    margin-bottom: 50px;
     text-align: left;
     margin-left: 100px;
 }
 
 h2 {
-    margin-top: 0px;
+    margin-top: 30px;
     text-align: left;
     margin-left: 100px;
-    font-size: 38px
+    font-size: 38px;
+    color: #000000;
 }
 
 .additional-section {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 30px;
     margin-bottom: 40px;
     flex-wrap: wrap;
 }
@@ -95,9 +117,9 @@ h2 {
 }
 
 .additional-button img {
-    width: 100%;
+    width: 110%;
     border-radius: 8px;
-    border: 3px solid #ffffff; /* Thin frame around the image */
+    border: 2px solid #ffffff;
 }
 
 .additional-button p {
@@ -156,7 +178,6 @@ h2 {
     cursor: pointer;
 }
 
-
 .photo-buttons {
     display: flex;
     flex-wrap: wrap;
@@ -170,8 +191,8 @@ h2 {
     padding: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     text-align: center;
-    width: calc(28% - 20px); /* Adjusted width for 4 buttons per row */
-    min-width: 200px; /* Minimum width to ensure it doesn't shrink too much */
+    width: calc(28% - 20px);
+    min-width: 200px;
 }
 
 .photo-button img {
@@ -187,44 +208,15 @@ button {
     padding: 10px;
     border-radius: 5px;
     cursor: pointer;
-    margin: 5px 0; /* Space between buttons */
-    width: 100%; /* Full width for buttons */
+    margin: 5px 0;
+    width: 100%;
     transition: background-color 0.3s;
 }
 
 button:hover {
-    background-color: #a87cd1; /* Darker on hover */
+    background-color: #a87cd1;
 }
 
-.popup {
-    display: none; /* Hidden by default */
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.7); /* Black background with opacity */
-}
-
-.popup-content {
-    background-color: #fefefe;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    max-width: 500px; /* Responsive max width */
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    z-index: 1001;
-}
-
-.popup img {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-}
 
 .close {
     color: #aaa;
@@ -253,7 +245,7 @@ button:hover {
     padding: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     text-align: center;
-    width: 200px; /* Fixed width for favorite cakes */
+    width: 200px;
 }
 
 .cart-item {
@@ -267,7 +259,7 @@ button:hover {
 }
 
 .cart-item img {
-    width: 50px; /* Small width for cart images */
+    width: 50px;
     height: auto;
     border-radius: 5px;
 }
@@ -276,9 +268,9 @@ button:hover {
     margin: 20px;
 }
 
-/* Additional styles for buttons in pop-ups */
+
 #add-to-cart-button {
-    background-color: #4CAF50; /* Green background */
+    background-color: #4CAF50;
     color: white;
     border: none;
     padding: 10px;
@@ -287,38 +279,15 @@ button:hover {
     transition: background-color 0.3s;
 }
 
-#add-to-cart-button:hover {
-    background-color: #45a049; /* Darker green on hover */
-}
 
-#purchase-button {
-    background-color: #2196F3; /* Blue background */
-}
 
-#purchase-button:hover {
-    background-color: #0b7dda; /* Darker blue on hover */
-}
-
-/* Cart popup */
-#cart-popup {
-    /* Width of cart pop-up */
-    display: none; /* Hidden by default */
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.7);
-}
 .nav-secondary {
     display: flex;
     justify-content: center;
     gap: 20px;
     margin-bottom: 20px;
-    background-color: #f0c7f1; /* Background color for the secondary navigation */
-    padding: 10px 0; /* Padding for better spacing */
+    background-color: #f0c7f1;
+    padding: 10px 0;
 }
 
 .nav-secondary a {
@@ -333,46 +302,45 @@ button:hover {
 }
 
 .logo-container {
-    position: fixed; /* Allows the logo to be positioned relative to the header */
-    top: 10px; /* Adjust as needed */
-    left: 90px; /* Adjust as needed */
+    position: fixed;
+    top: 10px;
+    left: 80px;
     z-index: 1001;
 }
 
 .logo {
-    height: 90px; /* Adjust height as needed */
-    width: auto; /* Maintain aspect ratio */
-    /* Add any additional styling for the logo here */
+    height: 90px;
+    width: auto;
 }
 
 #account-button {
-    position: relative; /* Keep it in the flow, but allow stacking */
-    z-index: 1002; /* Ensure it's above sections */
+    position: relative;
+    z-index: 1002;
 }
 .account_popup {
-    display: none; /* Hidden by default */
+    display: none;
     position: fixed;
-    z-index: 1002; /* Make sure it's above everything */
-    right: 0; /* Position it on the right */
-    top: 0; /* Align to the top */
-    width: 300px; /* Width of the pop-up */
-    height: 300%; /* Full height */
-    overflow: auto; /* Allow scrolling if content exceeds height */
-    background-color: rgba(211, 202, 202, 0.65); /* Semi-transparent background */
+    z-index: 1002;
+    right: 0;
+    top: 0;
+    width: 300px;
+    height: 300%;
+    overflow: auto;
+    background-color: rgba(211, 202, 202, 0.65);
 }
 
 #accountPopup:target {
-    display: block; /* Show when the ID is targeted */
+    display: block;
 }
 .account-popup-content {
-    background-color: #ffffff; /* White background for popup content */
-    margin: 20px; /* Margin around the popup content */
+    background-color: #ffffff;
+    margin: 20px;
     padding: 20px;
-    width: 260px; /* Width of the pop-up */
-    height: 95%; /* Full height */
+    width: 260px;
+    height: 95%;
     border-radius: 6px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    position: relative; /* Relative positioning for close button */
+    position: relative;
 }
 
 .account-close {
@@ -392,7 +360,7 @@ button:hover {
     cursor: pointer;
 }
 
-/* Optional: Style for hiding the pop-up when clicking outside */
+
 .popup:target::before {
     content: '';
     position: fixed;
@@ -400,8 +368,8 @@ button:hover {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgb(0, 0, 0); /* Semi-transparent overlay */
-    z-index: 1002; /* Below the pop-up but above other content */
+    background-color: rgb(0, 0, 0);
+    z-index: 1002;
 }
 
 .account-popup-content h2 {
@@ -463,7 +431,7 @@ button:hover {
     color: red;
     font-size: 24px;
 }
-/* About Us Page */.about {
+.about {
     max-width: 900px;    margin: 4rem auto;
     padding: 4rem;    background-color: #ffffff;
     border-radius: 20px;    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.1);
@@ -490,7 +458,7 @@ button:hover {
     font-size: 2.2rem;    font-weight: bold;
     color: #8d38ea;    padding-right: 5px;
     margin-left: 5px;}
-/* Pagination */
+
 .page {    position: absolute;
     bottom: 10px;    left: 50%;
     transform: translateX(-50%);    font-size: 1.2rem;
@@ -501,19 +469,12 @@ button:hover {
 .page:hover {    background-color: #8d38ea;
     color: #fff;}
 
-/* style.css */body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;    background-color: #f0f4f8;
-    margin: 0;    padding: 0;
-    color: #333;}
+
 .contacts {
     max-width: 1200px;    margin: 50px auto;
     padding: 40px;    text-align: center;
 }
-h1 {    font-size: 4rem;
-    color: #ff4f8b;    margin-bottom: 40px;
-    font-weight: bold;    text-transform: uppercase;
-    letter-spacing: 3px;    line-height: 1.3;
-}
+
 .contact-item {    display: inline-block;
     width: 320px;    margin: 30px;
     padding: 20px;    background-color: #fff;
@@ -537,7 +498,7 @@ h1 {    font-size: 4rem;
     font-size: 1.5rem;
     color: #ff4f8b;    vertical-align: middle;
 }
-/* Responsive layout */@media screen and (max-width: 768px) {
+@media screen and (max-width: 768px) {
     .contact-item {        width: 90%;
         margin: 20px auto;    }
     h1 {
@@ -549,12 +510,7 @@ h1 {    font-size: 4rem;
     h1 {
         font-size: 2.5rem;    }
 }
-/* styles.css */body {
-    font-family: Arial, sans-serif;    background-color: #f4afaf;
-    color: #333;    padding: 20px;
-}
-h1 {    font-size: 2em;
-    color: #333;}
+
 #favorites-container {
     display: flex;    flex-wrap: wrap;
     gap: 20px;}
@@ -596,3 +552,204 @@ form button {
 form button:hover {    background-color: #8d38ea;
 }
 
+.profile-picture {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+.payment-page-container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
+}
+
+.amount-section {
+    color: white;
+    font-size: 1.2rem;
+    text-align: right;
+    line-height: 1;
+}
+.amount-section p {
+    margin: 0;
+}
+
+.amount-section h1 {
+    font-size: 3rem;
+    margin: 5px 0 0 0;
+}
+
+
+.payment-card {
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+    width: 500px;
+    margin-left: 100px;
+}
+
+.payment-card h2 {
+    font-size: 2.0rem;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: left;
+    width: 100%;
+}
+
+
+.card-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.card-info label {
+    font-size: 1rem;
+    color: #777;
+    margin-bottom: 5px;
+}
+
+/* Card Icons */
+.card-icons {
+    display: flex;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+.card-icons img {
+    width: 35px;
+    height: auto;
+}
+
+/* Input Fields */
+input[type="text"],
+select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #f1f1f1;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: #333;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+/* Expiry and CVV Section */
+.expiry-cvv {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+select {
+    width: calc(50% - 5px);
+}
+
+input#cvv {
+    width: calc(50% - 5px);
+}
+
+/* Pay Now Button */
+.pay-now-button {
+    background-color: #d452e6;
+    color: white;
+    font-size: 1rem;
+    border: none;
+    padding: 12px;
+    border-radius: 5px;
+    width: 100%;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.pay-now-button:hover {
+    background-color: #b83ed1;
+}
+#cart-popup {
+    display: none;
+    position: fixed;
+    z-index: 1001;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+#cart-popup input[type="text"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: border 0.3s, box-shadow 0.3s;
+}
+
+#cart-popup input[type="text"]:focus {
+    border: 1px solid #66afe9;
+    outline: none;
+    box-shadow: 0 0 5px rgba(102, 175, 233, 0.5);
+}
+
+#cart-close {
+    position: fixed;
+    top: 10px;
+    right: 15px;
+    font-size: 40px;
+    cursor: pointer;
+    color: white;
+}
+
+#cart-close:hover {
+    color: #ff3c94;
+}
+#cart-items .cart-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-align: left;
+}
+
+#cart-items .cart-item img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-right: 15px;
+}
+
+#cart-items .remove-from-cart {
+    margin-left: auto;
+    background-color: #f866ab;
+    border: none;
+    padding: 10px;
+    width: 110px;
+    max-width: 100px;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+    transition: background-color 0.3s;
+    display: inline-block;
+}
+
+#cart-items .remove-from-cart:hover {
+    background-color: #ff246f;
+}
+
+
+#cart-items .cart-item span {
+    flex-grow: 1;
+    font-size: 16px;
+}

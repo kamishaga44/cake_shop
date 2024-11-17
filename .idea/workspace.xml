@@ -4,9 +4,46 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2f61fc4f-be81-484f-aa69-c9634b2de864" name="Changes" comment="jj">
+    <list default="true" id="2f61fc4f-be81-484f-aa69-c9634b2de864" name="Changes" comment="добавила change a password and delete account">
+      <change afterPath="$PROJECT_DIR$/static/images/b1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/b2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/b3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/b4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/b5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/b6.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/b7.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/b8.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/b9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/logo2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/veg1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/veg2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/veg3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/veg4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/veg5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/veg6.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/menu/menu.pdf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/6a8b3bd3-1fe3-4dfb-a900-18a7ff3de1d8.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/6a8b3bd3-1fe3-4dfb-a900-18a7ff3de1d8.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ll.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/images/cake1.png" beforeDir="false" afterPath="$PROJECT_DIR$/static/images/cake1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/images/cake2.png" beforeDir="false" afterPath="$PROJECT_DIR$/static/images/cake2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/images/cake3.png" beforeDir="false" afterPath="$PROJECT_DIR$/static/images/cake3.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/images/cake4.png" beforeDir="false" afterPath="$PROJECT_DIR$/static/images/cake4.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/images/cake5.png" beforeDir="false" afterPath="$PROJECT_DIR$/static/images/cake5.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/images/cake6.png" beforeDir="false" afterPath="$PROJECT_DIR$/static/images/cake6.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/images/cup1.png" beforeDir="false" afterPath="$PROJECT_DIR$/static/images/cup1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/images/cup2.png" beforeDir="false" afterPath="$PROJECT_DIR$/static/images/cup2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/images/cup3.png" beforeDir="false" afterPath="$PROJECT_DIR$/static/images/cup3.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/images/cup4.png" beforeDir="false" afterPath="$PROJECT_DIR$/static/images/cup4.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/images/cup5.png" beforeDir="false" afterPath="$PROJECT_DIR$/static/images/cup5.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/images/cup6.png" beforeDir="false" afterPath="$PROJECT_DIR$/static/images/cup6.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/account.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/account.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/settings.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/settings.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,8 +54,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Flask Main" />
-        <option value="Python Script" />
         <option value="HTML File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -34,20 +71,42 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <favorite-branches>
+      <branch-storage>
+        <map>
+          <entry type="LOCAL">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="development" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </favorite-branches>
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
+  &quot;history&quot;: [
+    {
+      &quot;state&quot;: &quot;OPEN&quot;
+    }
+  ],
   &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;kamishaga44&quot;
+    &quot;state&quot;: &quot;OPEN&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/kamishaga44/cake_shop.git",
-    "accountId": "e87c7205-b15b-4119-912d-b630ec7e3f72"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/kamishaga44/cake_shop.git&quot;,
+    &quot;accountId&quot;: &quot;e87c7205-b15b-4119-912d-b630ec7e3f72&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
 }</component>
@@ -57,31 +116,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "Flask server.bakery.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "/Users/kamilaserikpaeva/PyCharm Projects/bakery/static",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;Flask server.bakery.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;development&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/kamilaserikpaeva/PyCharm Projects/bakery/static&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/static" />
       <recent name="$PROJECT_DIR$/templates" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/static/menu" />
     </key>
   </component>
   <component name="RunManager">
@@ -93,7 +155,7 @@
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
@@ -123,6 +185,7 @@
       <workItem from="1731337992060" duration="3000" />
       <workItem from="1731397986026" duration="397000" />
       <workItem from="1731399344232" duration="557000" />
+      <workItem from="1731412248211" duration="145000" />
     </task>
     <task id="LOCAL-00001" summary="jj">
       <option name="closed" value="true" />
@@ -132,7 +195,23 @@
       <option name="project" value="LOCAL" />
       <updated>1731247450352</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="пробный">
+      <option name="closed" value="true" />
+      <created>1731411127884</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1731411127885</updated>
+    </task>
+    <task id="LOCAL-00003" summary="добавила change a password and delete account">
+      <option name="closed" value="true" />
+      <created>1731493665950</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1731493665950</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -143,7 +222,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="development" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -151,9 +242,11 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="jj" />
-    <option name="LAST_COMMIT_MESSAGE" value="jj" />
+    <MESSAGE value="пробный" />
+    <MESSAGE value="добавила change a password and delete account" />
+    <option name="LAST_COMMIT_MESSAGE" value="добавила change a password and delete account" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/bakery$bakery.coverage" NAME="bakery Coverage Results" MODIFIED="1731247289572" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/bakery$bakery.coverage" NAME="bakery Coverage Results" MODIFIED="1731509949804" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
